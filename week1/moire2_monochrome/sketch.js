@@ -121,7 +121,7 @@ function capturecam() {
 function setup() {
 
   if (isMobile == false) {
-    skip = 10;
+    skip = 15;
     cnv = createCanvas(windowHeight, windowHeight);
     cnv.style('display', 'block');
   } else {
@@ -369,14 +369,20 @@ function noiseSetup() {
 function noiseDraw() {
 
   blendMode(BLEND);
-    background(255);
-  //blendMode(ADD);
+    background(0);
+
+  blendMode(ADD);
+  redpg.background(0);
+  greenpg.background(0);
+  bluepg.background(0);
+
+
 
 //if(isMobile == false){
 getColour();
 //}
 
-lfo();
+//lfo();
 // var zoom = map(counter,0, 200, .25, 1.0); // use settings for insta docs
   //var zoom = map(counter,0, countermax, .25, 1.0);
 //var zoom = 0.75;
@@ -625,7 +631,7 @@ function lfo () {
 //  console.log(reset);
 // }
 
-sine = 1 * sin(TWO_PI * frameCount / 200);
+sine = 1 * sin(TWO_PI * frameCount / 1200);
 
 // if (sine > 0.99){
 //   gohome = !gohome;

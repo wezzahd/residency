@@ -121,7 +121,7 @@ function capturecam() {
 function setup() {
 
   if (isMobile == false) {
-    skip = 15;
+    skip = 10;
     cnv = createCanvas(windowHeight, windowHeight);
     cnv.style('display', 'block');
   } else {
@@ -370,7 +370,13 @@ function noiseDraw() {
 
   blendMode(BLEND);
     background(0);
+
   blendMode(ADD);
+  redpg.background(0);
+  greenpg.background(0);
+  bluepg.background(0);
+
+
 
 //if(isMobile == false){
 getColour();
