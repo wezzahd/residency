@@ -63,6 +63,10 @@ var aVelocity = 10.0;
 var aAcceleration = 0.0;
 var damping = 0.99;
 
+let max_distance;
+
+
+
 
 document.addEventListener('touchmove', function(event) {
   if (event.scale !== 1) {
@@ -122,7 +126,7 @@ function setup() {
 
   if (isMobile == false) {
     skip = 10;
-    cnv = createCanvas(windowHeight, windowHeight);
+    cnv = createCanvas(600, 600);
     cnv.style('display', 'block');
   } else {
     skip = 20;
@@ -354,12 +358,20 @@ function noiseSetup() {
   greenparticles = make2Darray(cols, rows);
   blueparticles = make2Darray(cols, rows);
 
+  max_distance = dist(100,100,width/2,height/2);
+
+
   for (var y = 0; y < rows; y++) {
     for (var x = 0; x < cols; x++) {
+
+let d = dist(width/2, height/2, x*skip, y*skip);
+if (d < max_distance){
+
 
    redparticles[y][x] = new Particle(x * skip, y * skip, 0);
   greenparticles[y][x] = new Particle(x * skip, y * skip, 1);
    blueparticles[y][x] = new Particle(x * skip, y * skip, 2);
+ }
     }
   }
 
@@ -420,9 +432,12 @@ var deg = 0;//map(mouseX, 0, width, 0, 90);
   for (var y = 0; y < rows; y++) {
     for (var x = 0; x < cols; x++) {
     //  particles[y][x].calculateForce();
+    let distance = dist(width/2, height/2, x*skip, y*skip);
+    if (distance < max_distance){
     redparticles[y][x].display();
    //particles[y][x].behaviours();
       redparticles[y][x].update();
+    }
     }
   }
 //  pop();
@@ -437,9 +452,11 @@ var deg = 0;//map(mouseX, 0, width, 0, 90);
       //  redparticles[y][x].display();
      //particles[y][x].behaviours();
         //redparticles[y][x].update();
-
+        let distance = dist(width/2, height/2, x*skip, y*skip);
+        if (distance < max_distance){
      greenparticles[y][x].display();
     greenparticles[y][x].update();
+  }
       }
     }
   //  pop();
@@ -452,9 +469,13 @@ var deg = 0;//map(mouseX, 0, width, 0, 90);
       for (var y = 0; y < rows; y++) {
         for (var x = 0; x < cols; x++) {
 
+          let distance = dist(width/2, height/2, x*skip, y*skip);
+          if (distance < max_distance){
+
       blueparticles[y][x].display();
        //particles[y][x].behaviours();
         blueparticles[y][x].update();
+      }
         }
       }
   //    pop();
@@ -462,7 +483,7 @@ var deg = 0;//map(mouseX, 0, width, 0, 90);
 
 var framespeed = frameCount/2;//map(sine,-1,1,-10,10);
 
-let angle = atan2(mouseY - height / 2, mouseX - width / 2);
+let angle = atan2(mouseY - (height / 2), mouseX - (width / 2));
 
 
 //  angle = 0;
@@ -488,26 +509,28 @@ let angle = atan2(mouseY - height / 2, mouseX - width / 2);
    //rotate(radians(framespeed));
    imageMode(CENTER);
 
-   var maskedImage = pgMask(redpg,circlemask);
-   image(maskedImage, 0, 0);
-  // image(redpg,0,0);
+  // var maskedImage = pgMask(redpg,circlemask);
+   //image(maskedImage, 0, 0);
+  image(redpg,0,0);
   pop();
   //
   push();
   translate(width/2,height/2);
   rotate(angle);
-  imageMode(CENTER);
+ imageMode(CENTER);
 
-     var maskedImage = pgMask(greenpg,circlemask);
-     image(maskedImage, 0, 0);
+  //   var maskedImage = pgMask(greenpg,circlemask);
+    // image(maskedImage, 0, 0);
+    image(greenpg,0,0);
   pop();
   //
   push();
   translate(width/2,height/2);
-  rotate(angle * 0.5);
-  imageMode(CENTER);
-  var maskedImage = pgMask(bluepg,circlemask);
-  image(maskedImage, 0, 0);
+  rotate(angle*0.5);
+ imageMode(CENTER);
+//  var maskedImage = pgMask(bluepg,circlemask);
+  //  image(maskedImage, 0, 0);
+image(bluepg,0,0);
   pop();
 
 
@@ -564,11 +587,15 @@ function getColour() {
           let d = pixelDensity();
           index = 4 * ((y * d) * capture.width * d + (x * d));
 
+          let distance = dist(width/2, height/2, x*skip, y*skip);
+          if (distance < max_distance){
+
           redparticles[y][x].setToColor(capture.pixels[index], capture.pixels[index + 1], capture.pixels[index +2]);
           greenparticles[y][x].setToColor(capture.pixels[index], capture.pixels[index + 1], capture.pixels[index +2]);
           blueparticles[y][x].setToColor(capture.pixels[index], capture.pixels[index + 1], capture.pixels[index +2]);
         // console.log("set color");
         }
+      }
       }
 }
 

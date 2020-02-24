@@ -146,7 +146,7 @@ redpg.ellipse(this.pos.x,this.pos.y,this.size/2);
 if (this.channel ==  1){
   //GREEN
  greenpg.stroke(0, this.rgb.y,0,this.alpha);
-  greenpg.fill(0, this.rgb.y,0,this.fillalpha);
+ greenpg.fill(0, this.rgb.y,0,this.fillalpha);
 //greenpg.rectMode(CENTER);
   //greenpg.rect(this.pos.x+(this.size/3), this.pos.y, (this.size/3)*this.sizerr, this.size * this.sizerr);
   //greenpg.rect(this.pos.x+(this.size/2), this.pos.y, (this.size/2)*this.sizerr, this.size * this.sizerr);
@@ -158,7 +158,7 @@ if (this.channel ==  1){
 if (this.channel ==  2){
   //BLUE
  bluepg.stroke(0, 0, this.rgb.z,this.alpha);
-  bluepg.fill(0, 0, this.rgb.z,this.fillalpha);
+ bluepg.fill(0, 0, this.rgb.z,this.fillalpha);
   //bluepg.rectMode(CENTER);
 //bluepg.rect(this.pos.x+(this.size/3), this.pos.y, (this.size/3)*this.sizerr, this.size * this.sizerr);
 //bluepg.rect(this.pos.x+(this.size/2), this.pos.y, (this.size/2)*this.sizerr, this.size * this.sizerr);
