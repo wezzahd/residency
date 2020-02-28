@@ -29,9 +29,13 @@ function draw() {
   // shader() sets the active shader with our shader
   shader(camShader);
 
+  let mx = map(mouseX, 0, width, 20, 100);
+  let my = map(mouseY, 0, height, 0, 1);
+
   // lets just send the cam to our shader as a uniform
   camShader.setUniform('tex0', cam);
   camShader.setUniform('resolution', [width, height]);
+  camShader.setUniform('mouse', [mx, my]);
 
   // rect gives us some geometry on the screen
   rect(0,0,width, height);

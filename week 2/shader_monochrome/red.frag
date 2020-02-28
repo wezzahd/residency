@@ -1,9 +1,11 @@
 precision mediump float;
 
-const float PI = 3.1415926535897932384626433832795;
-
 uniform vec2 resolution;
 uniform vec2 mouse;
+uniform float tileno;
+uniform float radius;
+
+const float PI = 3.1415926535897932384626433832795;
 
 // lets grab texcoords just for fun
 varying vec2 vTexCoord;
@@ -11,12 +13,10 @@ varying vec2 vTexCoord;
 // our texture coming from p5
 uniform sampler2D tex0;
 
-
-  float circle(vec2 st, float radius){
-      vec2 pos = vec2(0.5)-st;
-      radius *= 0.75;
-      return 1.-smoothstep(radius-(radius*0.05),radius+(radius*0.05),dot(pos,pos)*PI);
-
+float circle(vec2 st, float radius){
+    vec2 pos = vec2(0.5)-st;
+    radius *= 1.;
+    return 1.-smoothstep(radius-(radius*0.0),radius+(radius*0.0),dot(pos,pos)*PI);
 }
 
 float box(vec2 _st, vec2 _size, float _smoothEdges){
@@ -33,8 +33,9 @@ void main() {
 
 float aspect = resolution.x / resolution.y;
 
-vec3 color = vec3(0.0);
-
+vec3 red = vec3(1.0,0.0,0.0);
+vec3 green = vec3(0.0,1.0,0.0);
+vec3 blue = vec3(0.0,0.0,1.0);
 
 // copy the vTexCoord
 // vTexCoord is a value that goes from 0.0 - 1.0 depending on the pixels location
@@ -44,7 +45,7 @@ vec2 uv = vTexCoord;
 uv = 1.0 - uv;
 st = 1.0 - st;
 
-float tiles = 3.0;//mouse.x;
+float tiles = tileno;//mouse.x;
 //uv.x *= aspect;
 uv = uv * tiles;
 uv = floor(uv);
@@ -54,6 +55,7 @@ vec4 tex = texture2D(tex0, uv);
 
 //st.x *= aspect;
 
+
 // lets multiply the coordinates by a factor of 10
 st *= tiles;
 
@@ -62,18 +64,19 @@ st *= tiles;
 // it is built in to glsl
 st = fract(st);
 
-
-//color = vec3(tex.x,tex.y,tex.z);
-color = vec3(0.3,0.,0.3);
-//color = vec3(tex.x,0,0);
-
-//vec3 circles = vec3(1.-box(st,vec2(0.4),0.01));
-vec3 circles = vec3(circle(st,0.2));
-//vec4 circles2 = vec3(circle(st,0.205));
+red = vec3(tex.x,tex.x,tex.x);//monochrome version
+//green = vec3(0.,tex.y,0.);
+//blue = vec3(0.,0.,tex.z);
 
 
-vec3 color2 = mix(circles, color, circles.x);
-//vec3 color2 = vec3(color.x,circles.x,circles.x);
+
+
+vec3 circles = vec3(box(st,vec2(radius),0.0));
+//vec3 circles = vec3(circle(st,radius));
+
+
+vec3 color2 = mix(circles,red, 1./circles.x);
+vec4 colour = vec4(red, circles.x);
 
 gl_FragColor = vec4(color2,1.0);
 
