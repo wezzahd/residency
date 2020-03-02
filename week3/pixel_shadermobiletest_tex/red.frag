@@ -77,10 +77,23 @@ void main()  {
 //isMobile == false
 
 float mobiletest = float(isMobile);
-mobiletest = 1. - mobiletest;
 
-		// if (mobiletest == 0){
-		 	uv.y = (mobiletest) - uv.y; // flip UV if on Desktop
+// if (x<0.5)
+// {
+//   x=a;
+//   }else{
+//   x=b;
+// }
+//
+// // faster
+// x=a*step(x,0.5)+b*step(0.5,x);
+
+//If conditional statement below equivalent: see example above
+
+
+uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
+
+//uv.y = (mobiletest) - uv.y; // flip UV if on Desktop
 
 
 

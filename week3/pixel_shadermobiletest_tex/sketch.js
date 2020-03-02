@@ -102,12 +102,12 @@ image(redpg,0,0);
 
 push();
 rotate(angle);
-//image(greenpg,0,0);
+image(greenpg,0,0);
 pop();
 
 push();
 rotate(angle*2);
-//image(bluepg,0,0);
+image(bluepg,0,0);
 pop();
 
 

@@ -5,6 +5,8 @@ uniform vec2 mouse;
 uniform float tileno;
 uniform float radius;
 uniform float u_time;
+uniform bool isMobile;
+
 
 const float PI = 3.1415926535897932384626433832795;
 
@@ -71,7 +73,32 @@ float d = box(pos, vec2(radius), 0.5);
     // to sampling artifacts where the UVs change abruptly at the pixelated block boundaries.
     uv += vec2(0.5) / count;
     uv = clamp(uv, 0.0, 0.99);
-    uv.y = 1.0 - uv.y;
+    //uv.y = 1.0 - uv.y;
+
+		float mobiletest = float(isMobile);
+
+		// if (x<0.5)
+		// {
+		//   x=a;
+		//   }else{
+		//   x=b;
+		// }
+		//
+		// // faster
+		// x=a*step(x,0.5)+b*step(0.5,x);
+
+		//If conditional statement below equivalent: see example above
+
+
+		uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
+
+		//uv.y = (mobiletest) - uv.y; // flip UV if on Desktop
+
+
+
+
+
+
     vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
