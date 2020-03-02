@@ -79,8 +79,11 @@ void main()  {
     vec3 col = mix(texColor, bg, (1.-d));
     vec3 red = vec3(col.x,0.,0.);
 
+	vec3 texColor2 = texture2D(tex0, vTexCoord).rgb;
+
+
     // Set the final fragment color.
-	   gl_FragColor = vec4(red, 1.0);
+	   gl_FragColor = vec4(texColor2, 1.0);
 }
 
 
