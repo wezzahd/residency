@@ -5,6 +5,8 @@ uniform vec2 mouse;
 uniform float tileno;
 uniform float radius;
 uniform float u_time;
+uniform bool isMobile;
+
 
 const float PI = 3.1415926535897932384626433832795;
 
@@ -70,8 +72,20 @@ void main()  {
     // to sampling artifacts where the UVs change abruptly at the pixelated block boundaries.
     uv += vec2(0.5) / count;
     uv = clamp(uv, 0.0, 0.99);
-    uv.y = 1.0 - uv.y;
-    vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
+
+
+//isMobile == false
+
+float mobiletest = float(isMobile);
+
+		// if (mobiletest == 0){
+		 	uv.y = (1.0 * mobiletest) - uv.y;
+
+
+
+
+
+		vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
@@ -79,11 +93,11 @@ void main()  {
     vec3 col = mix(texColor, bg, (1.-d));
     vec3 red = vec3(col.x,0.,0.);
 
-	vec3 texColor2 = texture2D(tex0, vTexCoord).rgb;
+	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
 
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(texColor2, 1.0);
+	   gl_FragColor = vec4(red, 1.0);
 }
 
 
