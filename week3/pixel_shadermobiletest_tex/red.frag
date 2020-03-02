@@ -77,9 +77,10 @@ void main()  {
 //isMobile == false
 
 float mobiletest = float(isMobile);
+mobiletest = 1. - mobiletest;
 
 		// if (mobiletest == 0){
-		 	uv.y = (1.0 * mobiletest) - uv.y;
+		 	uv.y = (mobiletest) - uv.y; // flip UV if on Desktop
 
 
 
@@ -97,7 +98,8 @@ float mobiletest = float(isMobile);
 
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(red, 1.0);
+	  gl_FragColor = vec4(red, 1.0);
+	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }
 
 
