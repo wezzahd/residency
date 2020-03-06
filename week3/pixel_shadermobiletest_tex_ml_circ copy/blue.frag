@@ -15,6 +15,8 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
+//uniform sampler2D tex1; //alphamask
+
 
 
 // The min and max sizes of the circles (in pixels) over time.
@@ -105,6 +107,8 @@ void main()  {
 
 
     vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
+		//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
+
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.

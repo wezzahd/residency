@@ -15,6 +15,7 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
+//uniform sampler2D tex1; //alphamask
 
 
 // The min and max sizes of the circles (in pixels) over time.
@@ -57,6 +58,7 @@ void main()  {
     // The position is adjusted so that a circle is in the center of the display.
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
 		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
+		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 
@@ -112,6 +114,7 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 
 
 	vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
+	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.

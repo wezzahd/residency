@@ -11,8 +11,6 @@ var isAndroid = false;
 
 let redpg, greenpg, bluepg, alphapg;
 
-let max_distance;
-
 let distanceAvg = 2;
 
 var tileno = 10.;
@@ -58,48 +56,21 @@ function setup() {
   redpg = createGraphics(width, height, WEBGL);
   greenpg = createGraphics(width, height, WEBGL);
   bluepg = createGraphics(width, height, WEBGL);
-//  alphapg = createGraphics(width, height, WEBGL);
+  alphapg = createGraphics(width, height, WEBGL);
 
-
-//alph();
-
-
-
+  alph();
 }
 
 
 function alph() {
   alphapg.background(0);
-  //alphapg.stroke(255);
-  //alphapg.noFill();
-  alphapg.noStroke();
-alphapg.fill(255);
-
-
-//   alphapg.push();
-// alphapg.translate(-width/2,-height/2);
-//
-//   max_distance = dist(200,200,width/2,height/2);
-//
-//    for (var y = 0; y < height; y+= radius) {
-//      for (var x = 0; x < width; x+= radius) {
-//
-//  let d = dist(width/2, height/2, x, y);
-//  if (d < max_distance){
-
-   alphapg.ellipseMode(CENTER);
-  // alphapg.ellipse(x,y,radius,radius);
-   alphapg.ellipse(0,0,height-100,height-100);
-//  }
-//   }
-// }
-// alphapg.pop();
+  //alphapg.noStroke();
+  alphapg.strokeWeight(10);
+  alphapg.stroke(255,127);
+  alphapg.fill(255);
+   alphapg.rectMode(CENTER);
+   alphapg.rect(0,0,height-150,height-150);
 }
-
-
-
-
-
 
 function draw() {
   background(0);
@@ -107,9 +78,9 @@ function draw() {
   blendMode(SCREEN);
   mldraw();
 
-  radius = constrain (abs((map(avg(lastD),90,30,100,10))), 10, 100);//map(mouseX,0,width,width,2);//
+  radius = constrain (abs((map(avg(lastD),90,30,100,10))), 10, 100);
 //radius = avg(lastD);
-//alph();
+
 
   //console.log(avg(lastD));
   //translate(-width/2,-height/2);
@@ -121,27 +92,25 @@ function draw() {
 
   // lets just send the cam to our shader as a uniform
   redShader.setUniform('tex0', cam);
+    redShader.setUniform('tex1', alphapg);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
   redShader.setUniform('u_time', frameCount * 0.05);
   redShader.setUniform('isMobile', isMobile);
-  //redShader.setUniform('tex1', alphapg);
 
 
   greenShader.setUniform('tex0', cam);
+  greenShader.setUniform('tex1', alphapg);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
-//  greenShader.setUniform('tex1', alphapg);
-
 
   blueShader.setUniform('tex0', cam);
+  blueShader.setUniform('tex1', alphapg);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
-  //blueShader.setUniform('tex1', alphapg);
-
 
   //camShader.setUniform('mouse', [mx, my]);
 
@@ -150,7 +119,7 @@ function draw() {
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2);
+  //let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2);
 
 
 imageMode(CENTER);
@@ -158,13 +127,17 @@ imageMode(CENTER);
 image(redpg,0,0);
 
 push();
-rotate(angle);
-image(greenpg,0,0);
+//rotate(angle);
+let i = map(avg(lastlefteyeX), 0, width, width/3, 0);
+//let j = map(avg(lastlefteyeY), 0, height, height/3, 0);
+//console.log(i);
+
+image(greenpg, i , 0);
 pop();
 
 push();
-rotate(angle*2);
-image(bluepg,0,0);
+//rotate(angle*2);
+image(bluepg,0-i,0);
 pop();
 
 

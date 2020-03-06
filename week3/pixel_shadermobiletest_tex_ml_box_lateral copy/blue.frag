@@ -15,7 +15,7 @@ varying vec2 vTexCoord;
 
 // our texture coming from p5
 uniform sampler2D tex0;
-//uniform sampler2D tex1; //alphamask
+uniform sampler2D tex1; //alphamask
 
 
 // The min and max sizes of the circles (in pixels) over time.
@@ -58,9 +58,14 @@ void main()  {
 		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
-		float d = ComputeCircle(pos, center, radius/2., 0.5);
-		float d2 = ComputeCircle(screenPos2, center, 300.0  , 0.9);
-//float d = box(pos, vec2(radius), 0.5);
+//   float d = ComputeCircle(pos, center, radius/2., 0.5);
+	// float d2 = ComputeCircle(screenPos2, center, 300., 0.9);
+
+	float d = box(pos, vec2(radius), 0.5);
+	float d2 = box(screenPos2, vec2(400.0), 0.5);
+
+
+	//	float d = box(pos, vec2(radius), 0.5);
 
 
     // Compute "pixelated" (stepped) texture coordinates using the floor() function.
@@ -103,19 +108,21 @@ void main()  {
 
 
 
+
     vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
-		//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
+		vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
-    vec3 col = mix(texColor, bg, (d)); //1.-d for rect
-    vec3 green = vec3(0.,col.y,0.);
-	vec3 mask = vec3(d2,d2,d2);
-	vec3 greenmask = mix(green,bg,mask.x);
+    vec3 col = mix(texColor, bg, (1.-d)); //1.-d for rect
+    vec3 blue = vec3(0.,0.,col.y);
+
+		vec3 mask = vec3(1.- d2);
+		vec3 bluemask = mix(blue,bg,1.-alphmask.x);
 
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(greenmask, 1.0);
+	   gl_FragColor = vec4(bluemask, 1.0);
 }
