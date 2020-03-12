@@ -105,9 +105,9 @@ function draw() {
   background(0);
   smooth();
   blendMode(SCREEN);
-  mldraw();
+  //mldraw();
 
-  radius = constrain (abs((map(avg(lastD),90,30,100,10))), 10, 100);//map(mouseX,0,width,width,2);//
+  radius = 30;//constrain (abs((map(avg(lastD),90,30,100,10))), 10, 100);//map(mouseX,0,width,width,2);//
 //radius = avg(lastD);
 //alph();
 
@@ -150,7 +150,7 @@ function draw() {
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2);
+  let angle = 0;//atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2);
 
 
 imageMode(CENTER);

@@ -117,5 +117,5 @@ void main()  {
 
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(greenmask, 1.0);
+	   gl_FragColor = vec4(green, 1.0);
 }

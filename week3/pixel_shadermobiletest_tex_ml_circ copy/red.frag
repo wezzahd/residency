@@ -51,33 +51,33 @@ void main()  {
     float radius = diameter / 2.0;
     vec2  center = vec2(0.0);
 
-		float pct = 0.0;
-
     // Compute the relative distance to the circle, using mod() to repeat the circle across the display.
     // A feather value (in pixels) is used to reduce aliasing artifacts when the circles are small.
     // The position is adjusted so that a circle is in the center of the display.
-    vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
+    vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius/1.5);
 		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
 		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 
-		float d2 = ComputeCircle(screenPos2, center, 300.0 , 0.5);
-
-    float d = ComputeCircle(pos, center, radius/2.0 , 0.5); //circles
+	//	float d2 = ComputeCircle(screenPos2, center, 300.0 , 0.5);
 
 
 
+    //float d = ComputeCircle(pos, center, radius/2.0 , 0.5); //circles
 
 
-	//float d = box(pos, vec2(radius), 0.5); // rectangles
+
+
+
+float d = box(pos, vec2(radius), 0.5); // rectangles
 
     // Compute "pixelated" (stepped) texture coordinates using the floor() function.
     // The position is adjusted to match the circles, i.e. so a pixelated block is at the center of the
     // display.
   //  vec2 tileNum = floor(vec2(gl_FragCoord.xy)/tileSize);
   //  vec2 st =  tileNum * tileSize/u_resolution.xy;
-    vec2 count = resolution.xy / diameter;
+    vec2 count = resolution.xy / (diameter);
     vec2 shift = vec2(0.5) - fract(count / 2.0);
     vec2 uv = floor(count * gl_FragCoord.xy / resolution.xy + shift) / count;
 
@@ -120,17 +120,18 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
-    vec3 col = mix(texColor, bg, (d)); //1.-d for rect
-		vec3 mask = vec3(d2,d2,d2);
+		//vec3 gr = vec3(0.0,texColor.y,0.0);
+    vec3 col = mix(texColor, bg, (1.-d)); //1.-d for rect
+		//vec3 mask = vec3(d2,d2,d2);
     vec3 red = vec3(col.x,0.,0.);
 
 		//float redmask = col.x * step(mask.x,0.99) + 0.0 * step(0.99,mask.x);
-		vec3 redmask = mix(red,bg,mask.x);
+	//	vec3 redmask = mix(red,bg,mask.x);
 	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
 
 
     // Set the final fragment color.
-	  gl_FragColor = vec4(redmask, 1.0);
+	  gl_FragColor = vec4(red, 1.0);
 	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }
 

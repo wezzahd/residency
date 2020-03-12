@@ -70,7 +70,7 @@ void main()  {
     // display.
   //  vec2 tileNum = floor(vec2(gl_FragCoord.xy)/tileSize);
   //  vec2 st =  tileNum * tileSize/u_resolution.xy;
-    vec2 count = resolution.xy / diameter;
+    vec2 count = resolution.xy / (diameter* 3.);
     vec2 shift = vec2(0.5) - fract(count / 2.0);
     vec2 uv = floor(count * gl_FragCoord.xy / resolution.xy + shift) / count;
 
@@ -112,7 +112,7 @@ void main()  {
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
-    vec3 bg  = vec3(0.0, 0.0, 0.0);
+    vec3 bg  = vec3(0.0, 0.0, texColor.z);
     vec3 col = mix(texColor, bg, (d)); //1.-d for rect
     vec3 blue = vec3(0.,0.,col.y);
 
@@ -121,5 +121,5 @@ void main()  {
 
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(bluemask, 1.0);
+	   gl_FragColor = vec4(bg, 1.0);
 }
