@@ -89,7 +89,7 @@ function mainanimation() {
   mldraw();
   imageaspectratio(campg);
 
-  radius = constrain (abs((map(avg(lastD),90,30,100,10))), 10, 100);//map(mouseX,0,width,width,2);//
+  radius = constrain (abs((map(avg(lastD),90,30,100,10))), 3, 100);//map(mouseX,0,width,width,2);//
   //radius = avg(lastD);
   //alph();
 
