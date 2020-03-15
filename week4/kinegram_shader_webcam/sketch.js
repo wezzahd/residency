@@ -28,6 +28,10 @@ function setup() {
   pg = createGraphics(width,height);
   genpg = createGraphics(width,height,WEBGL);
 
+  loading = createDiv('Lenticular.  Press mouse button to capture webcam frames (one per second)')
+  loading.class("didactic");
+  loading.position(0,0);
+
 
 
   //genmoire(genpg);
@@ -40,7 +44,6 @@ function draw() {
  background(255);
 
 if (snaps == true){
-didatic();
 snapper();
 }
 
@@ -99,13 +102,13 @@ function mousePressed() {
   images.length = 0;
   }
 snaps = true;
-
+didatic();
 }
 
 function didatic() {
   loading = createDiv('loading...')
   loading.class("didactic");
-  loading.position(0,0);
+  loading.position(width/2,height/2);
 }
 
 
@@ -114,6 +117,8 @@ function snapper() {
 if (frameCount % 60 == 0 && images.length <= counter) {
     images.push(video.get());
 }
+
+
 
 if (images.length == counter){
 snaps = false;
