@@ -23,7 +23,7 @@ function draw() {
 background(255);
 image(genpg,0,0);
 
-image(pg,j,0);
+image(pg,mouseX,0);
 j= j-0.5;
 
 if (j < 0){

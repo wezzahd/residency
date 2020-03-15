@@ -54,7 +54,7 @@ void main()  {
     // Compute the relative distance to the circle, using mod() to repeat the circle across the display.
     // A feather value (in pixels) is used to reduce aliasing artifacts when the circles are small.
     // The position is adjusted so that a circle is in the center of the display.
-    vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius/1.5);
+    vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius/2.);
 		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
 		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
 
