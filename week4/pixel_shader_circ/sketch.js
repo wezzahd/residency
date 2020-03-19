@@ -87,7 +87,7 @@ function mainanimation() {
   smooth();
   blendMode(SCREEN);
   mldraw();
-  imageaspectratio(campg);
+imageaspectratio(campg);
 
   radius = constrain (abs((map(avg(lastD),90,30,100,10))), 3, 100);//map(mouseX,0,width,width,2);//
   //radius = avg(lastD);
@@ -160,6 +160,25 @@ if (go == true){
 }
 mainanimation();
 }
+
+function mousePressed() {
+
+  if (mouseX > width/3 && mouseX < width -(width/3) && mouseY > 0 && mouseY < 70 && isMobile == false) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+  console.log(isMobile);
+  //Remove vert scroll bar in fullScreen
+   document.body.scrollTop = 0; // <-- pull the page back up to the top
+  document.body.style.overflow = 'hidden';
+}
+
+if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < 70 && isAndroid == true ) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
+}
+
+
 
 function windowResized(){
 

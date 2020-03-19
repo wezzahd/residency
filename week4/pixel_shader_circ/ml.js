@@ -57,9 +57,6 @@ function modelReady() {
   //select('#status').html('Model Loaded');
 }
 
-function mousePressed(){
-  console.log(JSON.stringify(poses[0].pose.keypoints[0].part))
-}
 
 function mldraw() {
 

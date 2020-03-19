@@ -105,14 +105,28 @@ p.rect(x,0,5,height);
 
 function mousePressed() {
 
+  if (mouseX > width/3 && mouseX < width -(width/3) && mouseY > 0 && mouseY < 70 && isMobile == false) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+  //Remove vert scroll bar in fullScreen
+   document.body.scrollTop = 0; // <-- pull the page back up to the top
+  document.body.style.overflow = 'hidden';
+}
+
+if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < 70 && isAndroid == true ) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
+
  if (images.length > 0){
   images.length = 0;
   }
 snaps = true;
-didatic();
+didactic();
 }
 
-function didatic() {
+
+function didactic() {
   loading = createDiv('loading...')
   loading.class("didactic");
   loading.position(width/2,height/2);
