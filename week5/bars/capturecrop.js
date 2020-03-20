@@ -4,16 +4,12 @@ function imageaspectratio(pg) {
 
    //console.log(aspectRatiow, aspectRatioh)
 
-
-
-
    pg.push();
 
+   if (isMobile == false){
     pg.translate(width,0);
      pg.scale(-1, 1);
-
-
-
+}
 
    if (aspectRatiow > 1 && aspectRatioh < 1) {
      pg.translate(width/2,height/2);
