@@ -60,11 +60,13 @@ function windowResized(){
 
  if (isMobile == true) {
    inner = iosInnerHeight();
-   resizeCanvas(windowWidth, inner)
+   resizeCanvas(windowWidth, inner);
+   barlayer.resizeCanvas(windowWidth, inner);
+   bars(barlayer);
   }else{
 resizeCanvas(windowWidth, windowHeight);
-  }
-
 barlayer.resizeCanvas(windowWidth, windowHeight);
 bars(barlayer);
+  }
+
 }
