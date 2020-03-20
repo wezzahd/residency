@@ -28,21 +28,22 @@ function setup() {
   cam = createCapture(constraints);
     cam.elt.setAttribute('playsinline', '');
 
-
-
-
+  campg = createGraphics(width,height);
   barlayer = createGraphics(width,height);
   bars(barlayer);
- cam.size(width,height);
+ cam.size();
   cam.hide();
 }
 
 function draw() {
   background(255);
+
+  imageaspectratio(campg);
+
   push();
-  translate(windowWidth, 0);
-  scale(-1, 1);
-  image(cam,0,0,width,height);
+  //translate(windowWidth, 0);
+  //scale(-1, 1);
+  image(campg,0,0,width,height);
   pop();
   image(barlayer,0,0);
 }
@@ -61,10 +62,12 @@ function windowResized(){
  if (isMobile == true) {
    inner = iosInnerHeight();
    resizeCanvas(windowWidth, inner);
+   campg.resizeCanvas(windowWidth, inner);
    barlayer.resizeCanvas(windowWidth, inner);
    bars(barlayer);
   }else{
 resizeCanvas(windowWidth, windowHeight);
+campg.resizeCanvas(windowWidth, windowHeight);
 barlayer.resizeCanvas(windowWidth, windowHeight);
 bars(barlayer);
   }
