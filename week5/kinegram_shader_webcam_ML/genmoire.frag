@@ -76,7 +76,7 @@ vec2  center = vec2(0.5);
   float d4 = box(pos4,vec2(size-1.0 ,size+1.0));
   float d5 = box(pos5,vec2(size-1.0 ,size+1.0));
 
-  vec3 bg  = vec3(1.0, 1.0, 1.0);
+  vec3 bg  = vec3(1., 1.0, 1.0);
   vec3 sq = vec3(0.0, 0.0, 0.0);
 
   vec3 mask0 = mix(sq,bg,1.-d0);
@@ -98,12 +98,12 @@ vec2  center = vec2(0.5);
   vec4 texture5 = texture2D(tex5, tex_uv,-32.0).rgba;
 
 
-vec3 newtex0 = mix(bg,texture0.rgb,texture0.a);
-vec3 newtex1 = mix(bg,texture1.rgb,texture1.a);
-vec3 newtex2 = mix(bg,texture2.rgb,texture2.a);
-vec3 newtex3 = mix(bg,texture3.rgb,texture3.a);
-vec3 newtex4 = mix(bg,texture4.rgb,texture4.a);
-vec3 newtex5 = mix(bg,texture5.rgb,texture5.a);
+vec3 newtex0 = mix(bg,texture0.rgb,1.-texture0.a);
+vec3 newtex1 = mix(bg,texture1.rgb,1.-texture1.a);
+vec3 newtex2 = mix(bg,texture2.rgb,1.-texture2.a);
+vec3 newtex3 = mix(bg,texture3.rgb,1.-texture3.a);
+vec3 newtex4 = mix(bg,texture4.rgb,1.-texture4.a);
+vec3 newtex5 = mix(bg,texture5.rgb,1.-texture5.a);
 
  vec3 col0 = mix(bg,newtex0,mask0.x);
   vec3 col1 = mix(bg,newtex1,mask1.x);

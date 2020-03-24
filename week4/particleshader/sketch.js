@@ -1,7 +1,7 @@
 // 2020 Franz Flückiger
 // Interaction between p5js and glsl inspired by Jason Labbe
 
-const numCircles = 200;
+const numCircles = 1;
 const maxradius = 0.08;
 const minradius = 0.01;
 let circles = []
@@ -33,6 +33,7 @@ function draw() {
 	 let emits = circles.reduce((arr, c) => arr.concat(c.emit), [])
 	 let radii = circles.reduce((arr, c) => arr.concat(c.radius), [])
 	 let cols = circles.reduce((arr, c) => arr.concat(c.col), [])
+	 console.log(u_mouse);
    myShader.setUniform ('u_circlePos', positions);
    myShader.setUniform ('u_circleRadius', radii);
    myShader.setUniform ('u_circleEmit', emits);
