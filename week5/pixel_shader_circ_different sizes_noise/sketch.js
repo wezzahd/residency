@@ -110,7 +110,7 @@ function draw() {
   //mldraw();
 imageaspectratiomain(campg);
 
-  radius = 3000;//map(mouseX,0,width,width,2);
+  radius = map(mouseX,0,width,3000,300);
 //radius = avg(lastD);
 //alph();
 
