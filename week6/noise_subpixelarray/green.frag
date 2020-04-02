@@ -196,7 +196,7 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 
 
 
-	//vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
+vec3 maskColor = texture2D(tex0, uv, -32.0).rgb;
 vec3 texColor = hsb2rgb(vec3(1.0-noisecolor.x,1.0-noisecolor.y,1.0));
 
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
@@ -218,12 +218,12 @@ float edge2 = ((radius*2.0) * (1.0));
 		//float redmask = col.x * step(mask.x,0.99) + 0.0 * step(0.99,mask.x);
 	vec3 greenmask = mix(green,bg,1.-noisecolor.x);
 	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
-
+vec3 greenmaskout = mix(greenmask,bg,1.-maskColor.x);
 
 
 
 
     // Set the final fragment color.
-	  gl_FragColor = vec4(greenmask, greenmask.x);
+	  gl_FragColor = vec4(greenmaskout,1.0);
 	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }

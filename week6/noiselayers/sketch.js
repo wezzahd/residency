@@ -47,13 +47,13 @@ function setup() {
 
 
   // initialize the webcam at the window size
-  cam = createCapture(VIDEO);
-  cam.elt.setAttribute('playsinline', '');
-  //cam.size(windowWidth, windowHeight);
-
-
-  // hide the html element that createCapture adds to the screen
-  cam.hide();
+  // cam = createCapture(VIDEO);
+  // cam.elt.setAttribute('playsinline', '');
+  // //cam.size(windowWidth, windowHeight);
+  //
+  //
+  // // hide the html element that createCapture adds to the screen
+  // cam.hide();
   //mlsetup();
 
   redpg = createGraphics(width, height, WEBGL);
@@ -62,44 +62,7 @@ function setup() {
   campg = createGraphics(width, height,WEBGL);
 //  alphapg = createGraphics(width, height, WEBGL);
 
-
-//alph();
-
-
-
 }
-
-
-// function alph() {
-//   alphapg.background(0);
-//   //alphapg.stroke(255);
-//   //alphapg.noFill();
-//   alphapg.noStroke();
-// alphapg.fill(255);
-//
-//
-// //   alphapg.push();
-// // alphapg.translate(-width/2,-height/2);
-// //
-// //   max_distance = dist(200,200,width/2,height/2);
-// //
-// //    for (var y = 0; y < height; y+= radius) {
-// //      for (var x = 0; x < width; x+= radius) {
-// //
-// //  let d = dist(width/2, height/2, x, y);
-// //  if (d < max_distance){
-//
-//    alphapg.ellipseMode(CENTER);
-//   // alphapg.ellipse(x,y,radius,radius);
-//    alphapg.ellipse(0,0,height-100,height-100);
-// //  }
-// //   }
-// // }
-// // alphapg.pop();
-// }
-
-
-
 
 
 
@@ -108,9 +71,9 @@ function draw() {
   smooth();
   blendMode(SCREEN);
   //mldraw();
-imageaspectratiomain(campg);
+//imageaspectratiomain(campg);
 
-  radius = map(mouseX,0,width,3000,300);
+  radius = map(mouseX,0,width,300,300);
 //radius = avg(lastD);
 //alph();
 
@@ -121,14 +84,19 @@ imageaspectratiomain(campg);
   greenpg.shader(greenShader);
   bluepg.shader(blueShader);
 
+  let mx = map(mouseX, 0, width, 0, 1);
+    let my = map(mouseY, 0, height, 0, 1);
 
   // lets just send the cam to our shader as a uniform
   redShader.setUniform('tex0', campg);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
-  redShader.setUniform('u_time', frameCount * 0.0125);
+  redShader.setUniform('u_time', frameCount * 0.00125);
   redShader.setUniform('isMobile', isMobile);
+  redShader.setUniform('mouse', [mx, my]);
+
+
   //redShader.setUniform('tex1', alphapg);
 
 
@@ -136,7 +104,8 @@ imageaspectratiomain(campg);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
-  greenShader.setUniform('u_time', frameCount * 0.025);
+  greenShader.setUniform('u_time', frameCount * 0.0025);
+  greenShader.setUniform('mouse', [mx, my]);
 
 //  greenShader.setUniform('tex1', alphapg);
 
@@ -145,7 +114,8 @@ imageaspectratiomain(campg);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
-  blueShader.setUniform('u_time', frameCount * 0.05);
+  blueShader.setUniform('u_time', frameCount * 0.005);
+  blueShader.setUniform('mouse', [mx, my]);
 
   //blueShader.setUniform('tex1', alphapg);
 
@@ -174,9 +144,29 @@ rotate(angle*2);
 image(bluepg,0,0);
 pop();
 
+}
 
+
+function mousePressed() {
+
+  if (mouseX > width/3 && mouseX < width -(width/3) && mouseY > 0 && mouseY < 70 && isMobile == false) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+  console.log(isMobile);
+  //Remove vert scroll bar in fullScreen
+   document.body.scrollTop = 0; // <-- pull the page back up to the top
+  document.body.style.overflow = 'hidden';
+}
+
+if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < 70 && isAndroid == true ) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
 }
 
 function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
+  redpg.resizeCanvas(windowWidth, windowHeight);
+  greenpg.resizeCanvas(windowWidth, windowHeight);
+  bluepg.resizeCanvas(windowWidth, windowHeight);
 }

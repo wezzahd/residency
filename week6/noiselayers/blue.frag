@@ -107,6 +107,7 @@ void main()  {
     // The position is adjusted so that a circle is in the center of the display.
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
 		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
+	//	vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius/3.0,0.0);
 		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
 
 
@@ -123,7 +124,7 @@ void main()  {
 	  st.x *= resolution.x/resolution.y;
 
 vec3 noisecolor = noiser(pos,0.01);
-vec3 noisecolor2 = noiser(st,1.0);
+vec3 noisecolor2 = noiser(st,3.0);
 
 
 
@@ -173,21 +174,22 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 	vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
-	float edge = (radius * (noisecolor.x) * noisecolor2.x); // random sizes // generate different si
+float edge = radius + (radius * (mouse.x) * noisecolor2.x * sin(u_time));//(radius * (noisecolor.x) * noisecolor2.x); // random sizes // generate different si
 
-	float d = ComputeCircle(pos, center, edge , 0.5); //circles
-
+	float d = ComputeCircle(screenPos2, center, edge , 0.5); //circles
+//float d = box(screenPos2, vec2(edge/3.0,edge) , 2.0);
+//float d = box(screenPos2, vec2(edge) , 2.0);
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
-    vec3 col = mix(texColor, bg, (d)); //1.-d for rect
+    vec3 col = mix(vec3(1.0), bg, (d)); //1.-d for rect
 		vec3 mask = vec3(d2,d2,d2);
-    vec3 blue= vec3(0.,0.,col.z);
+    vec3 blue= vec3(0.0,0.,col.z);
 
 		//float redmask = col.x * step(mask.x,0.99) + 0.0 * step(0.99,mask.x);
-	vec3 bluemask = mix(blue,bg,mask.x);
+	//vec3 redmask = mix(red,bg,mask.x);
 	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
 
 

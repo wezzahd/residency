@@ -10,7 +10,7 @@ let camaspect;
 var isMobile = false;
 var isAndroid = false;
 
-let redpg, greenpg, bluepg, alphapg, campg;
+let redpg, greenpg, bluepg, alphapg, campg, maskpg;
 
 let max_distance;
 
@@ -45,29 +45,43 @@ function setup() {
   noStroke();
   pixelDensity(1.0);
 
+  //setAttributes('alpha', true);
+
 
   // initialize the webcam at the window size
-  cam = createCapture(VIDEO);
-  cam.elt.setAttribute('playsinline', '');
+//  cam = createCapture(VIDEO);
+  //cam.elt.setAttribute('playsinline', '');
   //cam.size(windowWidth, windowHeight);
 
 
   // hide the html element that createCapture adds to the screen
-  cam.hide();
+//  cam.hide();
   //mlsetup();
 
   redpg = createGraphics(width, height, WEBGL);
   greenpg = createGraphics(width, height, WEBGL);
   bluepg = createGraphics(width, height, WEBGL);
-  campg = createGraphics(width, height);
+  //campg = createGraphics(width, height);
+  maskpg= createGraphics(width, height,WEBGL);
+
 //  alphapg = createGraphics(width, height, WEBGL);
 
 
 //alph();
-
+masker();
 
 
 }
+
+
+function masker (){
+  maskpg.background(255);
+  maskpg.noStroke();
+  maskpg.fill(255);
+maskpg.rectMode(CENTER);
+  maskpg.rect(0,0,width-200,height-200);
+}
+
 
 
 
@@ -75,8 +89,9 @@ function draw() {
   background(0);
   smooth();
   blendMode(SCREEN);
+    noCursor();
   //mldraw();
-  imageaspectratio(campg);
+  //imageaspectratio(campg);
 
   radius = map(mouseX,0,width,10,100);//
 //radius = avg(lastD);
@@ -91,7 +106,7 @@ function draw() {
 
 
   // lets just send the cam to our shader as a uniform
-  redShader.setUniform('tex0', campg);
+  redShader.setUniform('tex0', maskpg);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
@@ -100,7 +115,7 @@ function draw() {
   //redShader.setUniform('tex1', alphapg);
 
 
-  greenShader.setUniform('tex0', campg);
+  greenShader.setUniform('tex0', maskpg);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
@@ -109,7 +124,7 @@ function draw() {
 //  greenShader.setUniform('tex1', alphapg);
 
 
-  blueShader.setUniform('tex0', campg);
+  blueShader.setUniform('tex0', maskpg);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
@@ -121,30 +136,85 @@ function draw() {
   //camShader.setUniform('mouse', [mx, my]);
 
   // rect gives us some geometry on the screen
+
   redpg.rect(0,0,width, height);
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = 0;atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
+  let angle = 0;//atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
 
 
 imageMode(CENTER);
 
+// var RedMaskedImage = pgMask(redpg, maskpg);
+// image(RedMaskedImage, 0, 0);
 image(redpg,0,0);
 
 push();
 rotate(angle);
-image(greenpg,radius/3,0);
+// var GreenMaskedImage = pgMask(greenpg, maskpg);
+// image(GreenMaskedImage, 0, 0);
+image(greenpg,radius/3, 0);
 pop();
 
 push();
 rotate(angle*2);
-image(bluepg,radius/3*2,0);
+image(bluepg,radius/3*2, 0);
 pop();
+}
+
+function pgMask(_content,_mask){
+  //Create the mask as image
+  var img = createImage(_mask.width,_mask.height);
+  img.copy(_mask, 0, 0, _mask.width, _mask.height, 0, 0, _mask.width, _mask.height);
+  //load pixels
+  img.loadPixels();
+  for (var i = 0; i < img.pixels.length; i += 4) {
+    // 0 red, 1 green, 2 blue, 3 alpha
+    // Assuming that the mask image is in grayscale,
+    // the red channel is used for the alpha mask.
+    // the color is set to black (rgb => 0) and the
+    // alpha is set according to the pixel brightness.
+    var v = img.pixels[i];
+    img.pixels[i] = 0;
+    img.pixels[i+1] = 0;
+    img.pixels[i+2] = 0;
+    img.pixels[i+3] = v;
+  }
+  img.updatePixels();
+
+  //convert _content from pg to image
+  var contentImg = createImage(_content.width,_content.height);
+  contentImg.copy(_content, 0, 0, _content.width, _content.height, 0, 0, _content.width, _content.height);
+  // create the mask
+  contentImg.mask(img)
+  // return the masked image
+  return contentImg;
+}
 
 
+function mousePressed() {
+
+  if (mouseX > width/3 && mouseX < width -(width/3) && mouseY > 0 && mouseY < 70 && isMobile == false) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+  console.log(isMobile);
+  //Remove vert scroll bar in fullScreen
+   document.body.scrollTop = 0; // <-- pull the page back up to the top
+  document.body.style.overflow = 'hidden';
+}
+
+if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < 70 && isAndroid == true ) {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
 }
 
 function windowResized(){
   resizeCanvas(windowWidth, windowHeight);
+  redpg.resizeCanvas(windowWidth, windowHeight);
+  greenpg.resizeCanvas(windowWidth, windowHeight);
+  bluepg.resizeCanvas(windowWidth, windowHeight);
+  maskpg.resizeCanvas(windowWidth, windowHeight);
+  masker();
 }
