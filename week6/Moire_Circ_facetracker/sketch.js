@@ -141,7 +141,7 @@ function mainanimation() {
   //let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
 
   let angle = map(avg(lastlefteyeX),0,width,15,-15);
- console.log(radians(angle)); // debug
+ console.log(radians(angle), avg(lastlefteyeX)); // debug
 
 
   imageMode(CENTER);
