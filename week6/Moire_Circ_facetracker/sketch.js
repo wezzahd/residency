@@ -22,6 +22,8 @@ var radius = 150.;
 
 var go = false;
 
+var mlready= false;
+
  var loading;
 
 
@@ -83,11 +85,12 @@ go = true;
 
 function mainanimation() {
 
+//  imageaspectratio(campg);
   background(0);
   smooth();
   blendMode(SCREEN);
   mldraw();
-  imageaspectratio(campg);
+
 
 
 
@@ -105,7 +108,7 @@ function mainanimation() {
 
 
   // lets just send the cam to our shader as a uniform
-  redShader.setUniform('tex0', campg);
+  redShader.setUniform('tex0', cam);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
@@ -114,14 +117,14 @@ function mainanimation() {
   //redShader.setUniform('tex1', alphapg);
 
 
-  greenShader.setUniform('tex0', campg);
+  greenShader.setUniform('tex0', cam);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
   //  greenShader.setUniform('tex1', alphapg);
 
 
-  blueShader.setUniform('tex0', campg);
+  blueShader.setUniform('tex0', cam);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
@@ -138,7 +141,7 @@ function mainanimation() {
   //let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
 
   let angle = map(avg(lastlefteyeX),0,width,15,-30);
- console.log(radians(angle)); // debug
+ //console.log(radians(angle)); // debug
 
 
   imageMode(CENTER);

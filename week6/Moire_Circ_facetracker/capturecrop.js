@@ -4,7 +4,7 @@ function imageaspectratio(pg) {
 
    //console.log(aspectRatiow, aspectRatioh)
 
-
+mlready = true;
 
 
    pg.push();
