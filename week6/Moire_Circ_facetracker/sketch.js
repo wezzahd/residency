@@ -47,7 +47,7 @@ function preload(){
 
 function setup() {
   // shaders require WEBGL mode to work
-  createCanvas(windowHeight, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowHeight, WEBGL);
   noStroke();
   pixelDensity(1.0);
 
@@ -140,8 +140,8 @@ function mainanimation() {
 
   //let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
 
-  let angle = map(avg(lastlefteyeX),0,width,15,-15);
- console.log(radians(angle), avg(lastlefteyeX)); // debug
+  let angle = map(avg(lastlefteyeX),0,cam.width,15,-15);
+ //console.log(radians(angle), avg(lastlefteyeX)); // debug
 
 
   imageMode(CENTER);
