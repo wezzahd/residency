@@ -140,7 +140,7 @@ float mobiletest = float(isMobile);
 //If conditional statement below equivalent: see example above
 
 
-uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
+uv = (1.0- uv) * step(mobiletest,0.9) + uv * step(0.9,mobiletest);
 
 //uv.y = (mobiletest) - uv.y; // flip UV if on Desktop
 
