@@ -82,7 +82,7 @@ void main()  {
 		//uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 
 
-	float d2 = ComputeCircle(screenPos2, center, (resolution.y)/2.0 , 1.0);
+	float d2 = ComputeCircle(screenPos2, center, (resolution.y/5.0) , 1.0);
 
 
 //screenPos3.x -= 0.25;
@@ -156,7 +156,7 @@ uv = (1.0 -uv) * step(mobiletest,0.9) + uv * step(0.9,mobiletest);
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
-    vec3 col = mix(vec3(0.5), bg, (d)); //1.-d for rect
+    vec3 col = mix(vec3(1.0), bg, (d)); //1.-d for rect
 		vec3 mask = vec3(d2);
     vec3 red = vec3(col.x,0.,0.);
 
