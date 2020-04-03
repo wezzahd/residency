@@ -47,7 +47,7 @@ function preload(){
 
 function setup() {
   // shaders require WEBGL mode to work
-  createCanvas(windowWidth, windowHeight, WEBGL);
+  createCanvas(windowWidth, windowWidth, WEBGL);
   noStroke();
   pixelDensity(1.0);
 
