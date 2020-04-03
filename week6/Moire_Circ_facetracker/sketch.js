@@ -135,8 +135,10 @@ function mainanimation() {
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
-// console.log(angle); // debug
+  //let angle = atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
+
+  let angle = map(avg(lastlefteyeX),0,width,15,-30);
+ console.log(radians(angle)); // debug
 
 
   imageMode(CENTER);
@@ -144,12 +146,12 @@ function mainanimation() {
   image(redpg,0,0);
 
   push();
-  rotate(angle);
+  rotate(radians(angle));
  image(greenpg,0,0);
   pop();
 
   push();
-  rotate(angle*2);
+  rotate(radians(angle*2));
  image(bluepg,0,0);
   pop();
 

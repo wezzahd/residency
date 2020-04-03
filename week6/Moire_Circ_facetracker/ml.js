@@ -77,8 +77,10 @@ function mldraw() {
     let leftEye = pose['leftEye'];
     //image(leftEyeImage, leftEye.x, leftEye.y, 60, 60);
 
-    lastlefteyeX.push(leftEye.x);
-    lastlefteyeY.push(leftEye.y);
+    let nose = pose['nose'];
+
+    lastlefteyeX.push(nose.x);
+    lastlefteyeY.push(nose.y);
     lastlefteyeX = lastlefteyeX.slice(lastlefteyeX.length-50);
     lastlefteyeY = lastlefteyeY.slice(lastlefteyeY.length-50);
 
