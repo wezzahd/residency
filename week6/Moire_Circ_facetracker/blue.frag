@@ -82,7 +82,7 @@ void main()  {
 		//uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 
 
-	float d2 = ComputeCircle(screenPos2, center, (resolution.y)/6.0 , 250.);
+	float d2 = ComputeCircle(screenPos2, center, (resolution.y)/5.0 , 250.);
 
 
 //screenPos3.x -= 0.25;
