@@ -22,6 +22,33 @@ uniform sampler2D tex0;
 #define MIN_SIZE 2.0
 #define MAX_SIZE 200.0
 
+vec3 rgb2hsb( in vec3 c ){
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 p = mix(vec4(c.bg, K.wz),
+                 vec4(c.gb, K.xy),
+                 step(c.b, c.g));
+    vec4 q = mix(vec4(p.xyw, c.r),
+                 vec4(c.r, p.yzx),
+                 step(p.x, c.r));
+    float d = q.x - min(q.w, q.y);
+    float e = 1.0e-10;
+    return vec3(abs(q.z + (q.w - q.y) / (6.0 * d + e)),
+                d / (q.x + e),
+                q.x);
+}
+
+//  Function from Iñigo Quiles
+//  https://www.shadertoy.com/view/MsS3Wc
+vec3 hsb2rgb( in vec3 c ){
+    vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),
+                             6.0)-3.0)-1.0,
+                     0.0,
+                     1.0 );
+    rgb = rgb*rgb*(3.0-2.0*rgb);
+    return c.z * mix(vec3(1.0), rgb, c.y);
+}
+
+
 // Compute the relative distance to the circle, where < 0.0 is outside the feathered border,
 // and > 1.0 is inside the feathered border.
 float ComputeCircle(vec2 pos, vec2 center, float radius, float feather){
@@ -76,28 +103,6 @@ float snoise(vec2 v) {
     return 130.0 * dot(m, g);
 }
 
-vec3 noiser (vec2 pos, float factor) {
-	vec3 noisecolor = vec3(0.0);
-	vec2 posi = vec2(pos*factor);
-
-	float DF = 0.0;
-
-	// Add a random position
-	float a = 0.0;
-	vec2 vel = vec2(u_time*.1);
-	DF += snoise(posi+vel)*.25+.25;
-
-	a = snoise(posi*vec2(cos(u_time*0.15),sin(u_time*0.1))*0.1)*3.1415;
-			vel = vec2(cos(a),sin(a));
-			DF += snoise(posi+vel)*.25+.25;
-
-			return vec3( smoothstep(0.,1.,fract(DF)) );
-}
-
-float lerp(float from, float to, float rel){
-  return ((1.0 - rel) * from) + (rel * to);
-}
-
 // The main function, which is executed once per pixel.
 void main()  {
     // Prepare the circle parameters, cycling the circle size over time.
@@ -110,10 +115,8 @@ void main()  {
     // A feather value (in pixels) is used to reduce aliasing artifacts when the circles are small.
     // The position is adjusted so that a circle is in the center of the display.
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
-	//	vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0) + vec2(radius/3.0,0.0);
-vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
+		vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
 		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
-vec2 screenPos4 = gl_FragCoord.xy - (resolution.xy) * vec2(mouse.x,1.0 - mouse.y);
 
 
 		vec2 count = resolution.xy / (diameter);
@@ -122,14 +125,10 @@ vec2 screenPos4 = gl_FragCoord.xy - (resolution.xy) * vec2(mouse.x,1.0 - mouse.y
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 
-	float d2 = ComputeCircle(screenPos4, center, 200.0 , 100.0);
+	float d2 = ComputeCircle(screenPos2, center, 300.0 , 0.5);
 
 
-	vec2 st = gl_FragCoord.xy/resolution.xy;
-	  st.x *= resolution.x/resolution.y;
 
-vec3 noisecolor = noiser(pos,0.01);
-vec3 noisecolor2 = noiser(st,5.0);
 
 
 
@@ -149,6 +148,27 @@ vec3 noisecolor2 = noiser(st,5.0);
     // to sampling artifacts where the UVs change abruptly at the pixelated block boundaries.
     uv += vec2(0.5) / count;
     uv = clamp(uv, 0.0, 0.99);
+
+vec2 noiseuv = uv;
+		//vec2 st = gl_FragCoord.xy/resolution.xy;
+			noiseuv.x *= resolution.x/resolution.y;
+				vec3 noisecolor = vec3(0.0);
+				vec2 posi = vec2(noiseuv*1.0);
+
+				float DF = 0.0;
+
+				// Add a random position
+				float a = 0.0;
+				vec2 vel = vec2(u_time*.1);
+				DF += snoise(posi+vel)*.25+.25;
+
+				a = snoise(posi*vec2(cos(u_time*0.15),sin(u_time*0.1))*0.1)*3.1415;
+						vel = vec2(cos(a),sin(a));
+						DF += snoise(posi+vel)*.25+.25;
+
+						noisecolor = vec3( smoothstep(0.,1.,fract(DF)) );
+
+
 
 
 //isMobile == false
@@ -176,34 +196,34 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 
 
 
-	vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
+vec3 maskColor = texture2D(tex0, uv, -32.0).rgb;
+vec3 texColor = hsb2rgb(vec3(1.0-noisecolor.x,1.0-noisecolor.y,1.0));
+
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
-	float edge = radius/2.0 + (radius * 2.0 * noisecolor2.x * sin(u_time) * (1.0-d2));//(radius * (noisecolor.x) * noisecolor2.x); // random sizes // generate different si
-// float edge2 = radius;
-//
-// float edge3 = screenPos4;
-
-
-float d = ComputeCircle(pos, center, edge, 0.5); //circles
-
-//	float d = box(screenPos2, vec2(edge/3.0,edge) , 0.5); //circles
-//	float d = box(screenPos2, vec2(edge) , 0.5);
+	float edge = ((radius*2.0/3.0) + (1.0) * sin(u_time*0.05)); // random sizes // generate different si
+float edge2 = ((radius*2.0) * (1.1));
+	//float d = ComputeCircle(pos, center, edge , 0.5); //circles
+	//float d = box(pos, vec2( (radius*2./3.0), radius*2.0), 0.5); // rectangles
+	float d = box(pos, vec2(edge, edge2), 0.5);
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
-    vec3 col = mix(vec3(1.0), bg, (d)); //1.-d for rect
+    vec3 col = mix(texColor, bg, (1.-d)); //1.-d for rect
 		vec3 mask = vec3(d2,d2,d2);
-    vec3 red = vec3(0.0,col.y,0.);
+    vec3 green = vec3(0., col.y ,0.);
 
 		//float redmask = col.x * step(mask.x,0.99) + 0.0 * step(0.99,mask.x);
-	vec3 redmask = mix(red,bg,mask.x);
+	vec3 greenmask = mix(green,bg,1.-noisecolor.x);
 	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
+vec3 greenmaskout = mix(greenmask,bg,1.-maskColor.x);
+
+
 
 
     // Set the final fragment color.
-	  gl_FragColor = vec4(red, 1.0);
+	  gl_FragColor = vec4(greenmaskout,1.0);
 	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }

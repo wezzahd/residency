@@ -10,19 +10,15 @@ let camaspect;
 var isMobile = false;
 var isAndroid = false;
 
-let redpg, greenpg, bluepg, alphapg, campg;
+let redpg, greenpg, bluepg, alphapg, campg, maskpg;
 
 let max_distance;
 
 let distanceAvg = 2;
 
-var tileno = 10.;
+var tileno = 2.;
 
 var radius = 150.;
-
-let x = 1;
-let y = 1;
-let easing = 0.05;
 
 
 function preload(){
@@ -49,24 +45,43 @@ function setup() {
   noStroke();
   pixelDensity(1.0);
 
+  //setAttributes('alpha', true);
+
 
   // initialize the webcam at the window size
-  // cam = createCapture(VIDEO);
-  // cam.elt.setAttribute('playsinline', '');
-  // //cam.size(windowWidth, windowHeight);
-  //
-  //
-  // // hide the html element that createCapture adds to the screen
-  // cam.hide();
+//  cam = createCapture(VIDEO);
+  //cam.elt.setAttribute('playsinline', '');
+  //cam.size(windowWidth, windowHeight);
+
+
+  // hide the html element that createCapture adds to the screen
+//  cam.hide();
   //mlsetup();
 
   redpg = createGraphics(width, height, WEBGL);
   greenpg = createGraphics(width, height, WEBGL);
   bluepg = createGraphics(width, height, WEBGL);
-  campg = createGraphics(width, height,WEBGL);
+  //campg = createGraphics(width, height);
+  maskpg= createGraphics(width, height,WEBGL);
+
 //  alphapg = createGraphics(width, height, WEBGL);
 
+
+//alph();
+masker();
+
+
 }
+
+
+function masker (){
+  maskpg.background(255);
+  maskpg.noStroke();
+  maskpg.fill(255);
+maskpg.rectMode(CENTER);
+  maskpg.rect(0,0,width-200,height-200);
+}
+
 
 
 
@@ -74,20 +89,13 @@ function draw() {
   background(0);
   smooth();
   blendMode(SCREEN);
+    noCursor();
   //mldraw();
-//imageaspectratiomain(campg);
+  //imageaspectratio(campg);
 
-  radius = 50;//map(mouseX,0,width,100,1000);
+  radius = 10; //map(mouseX,0,width,1,10);//
 //radius = avg(lastD);
 //alph();
-
-let targetX = mouseX;
-  let dx = targetX - x;
-  x += dx * easing;
-
-  let targetY = mouseY;
-  let dy = targetY - y;
-  y += dy * easing;
 
   //console.log(avg(lastD));
   //translate(-width/2,-height/2);
@@ -96,38 +104,31 @@ let targetX = mouseX;
   greenpg.shader(greenShader);
   bluepg.shader(blueShader);
 
-  let mx = map(x, 0, width, 0, 1);
-    let my = map(y, 0, height, 0, 1);
 
   // lets just send the cam to our shader as a uniform
-  redShader.setUniform('tex0', campg);
+  redShader.setUniform('tex0', maskpg);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
-  redShader.setUniform('u_time', frameCount * 0.00125);
+  redShader.setUniform('u_time', frameCount * 0.05);
   redShader.setUniform('isMobile', isMobile);
-  redShader.setUniform('mouse', [mx, my]);
-
-
   //redShader.setUniform('tex1', alphapg);
 
 
-  greenShader.setUniform('tex0', campg);
+  greenShader.setUniform('tex0', maskpg);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
-  greenShader.setUniform('u_time', frameCount * 0.0025);
-  greenShader.setUniform('mouse', [mx, my]);
+  greenShader.setUniform('u_time', frameCount * 0.025);
 
 //  greenShader.setUniform('tex1', alphapg);
 
 
-  blueShader.setUniform('tex0', campg);
+  blueShader.setUniform('tex0', maskpg);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
-  blueShader.setUniform('u_time', frameCount * 0.005);
-  blueShader.setUniform('mouse', [mx, my]);
+  blueShader.setUniform('u_time', frameCount * 0.0125);
 
   //blueShader.setUniform('tex1', alphapg);
 
@@ -135,6 +136,7 @@ let targetX = mouseX;
   //camShader.setUniform('mouse', [mx, my]);
 
   // rect gives us some geometry on the screen
+
   redpg.rect(0,0,width, height);
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
@@ -144,18 +146,55 @@ let targetX = mouseX;
 
 imageMode(CENTER);
 
+// var RedMaskedImage = pgMask(redpg, maskpg);
+// image(RedMaskedImage, 0, 0);
+push();
+rotate(-.17)
+
+
 image(redpg,0,0);
-
-push();
-rotate(angle);
-image(greenpg,0,0);
 pop();
 
 push();
-rotate(angle*2);
-image(bluepg,0,0);
+rotate(-.35);
+// var GreenMaskedImage = pgMask(greenpg, maskpg);
+// image(GreenMaskedImage, 0, 0);
+image(greenpg,0, 0);
 pop();
 
+push();
+rotate(-.7);
+image(bluepg,0, 0);
+pop();
+}
+
+function pgMask(_content,_mask){
+  //Create the mask as image
+  var img = createImage(_mask.width,_mask.height);
+  img.copy(_mask, 0, 0, _mask.width, _mask.height, 0, 0, _mask.width, _mask.height);
+  //load pixels
+  img.loadPixels();
+  for (var i = 0; i < img.pixels.length; i += 4) {
+    // 0 red, 1 green, 2 blue, 3 alpha
+    // Assuming that the mask image is in grayscale,
+    // the red channel is used for the alpha mask.
+    // the color is set to black (rgb => 0) and the
+    // alpha is set according to the pixel brightness.
+    var v = img.pixels[i];
+    img.pixels[i] = 0;
+    img.pixels[i+1] = 0;
+    img.pixels[i+2] = 0;
+    img.pixels[i+3] = v;
+  }
+  img.updatePixels();
+
+  //convert _content from pg to image
+  var contentImg = createImage(_content.width,_content.height);
+  contentImg.copy(_content, 0, 0, _content.width, _content.height, 0, 0, _content.width, _content.height);
+  // create the mask
+  contentImg.mask(img)
+  // return the masked image
+  return contentImg;
 }
 
 
@@ -181,4 +220,6 @@ function windowResized(){
   redpg.resizeCanvas(windowWidth, windowHeight);
   greenpg.resizeCanvas(windowWidth, windowHeight);
   bluepg.resizeCanvas(windowWidth, windowHeight);
+  maskpg.resizeCanvas(windowWidth, windowHeight);
+  masker();
 }

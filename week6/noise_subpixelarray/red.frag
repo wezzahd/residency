@@ -123,7 +123,7 @@ void main()  {
 		vec2 shift = vec2(0.5) - fract(count / 2.0);
 		vec2 uv = floor(count * gl_FragCoord.xy / resolution.xy + shift) / count;
 
-    vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
+
 
 	float d2 = ComputeCircle(screenPos2, center, 300.0 , 0.5);
 
@@ -206,6 +206,8 @@ vec3 texColor = hsb2rgb(vec3(1.-noisecolor.x,1.-noisecolor.y,1.0));
 float edge2 = ((radius*2.0) * (1.0));
 	//float d = ComputeCircle(pos, center, edge , 0.5); //circles
 	//float d = box(pos, vec2( (radius*2./3.0), radius*2.0), 0.5); // rectangles
+
+  vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 	float d = box(pos, vec2(edge*texColor.x, edge2*texColor.x), 0.5);
 
 	// Calculate the color based on the circle shape, mixing between that color and a background color.

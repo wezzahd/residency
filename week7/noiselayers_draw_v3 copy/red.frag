@@ -98,6 +98,15 @@ float lerp(float from, float to, float rel){
   return ((1.0 - rel) * from) + (rel * to);
 }
 
+vec3 hsb2rgb( in vec3 c ){
+    vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),
+                             6.0)-3.0)-1.0,
+                     0.0,
+                     1.0 );
+    rgb = rgb*rgb*(3.0-2.0*rgb);
+    return c.z * mix(vec3(1.0), rgb, c.y);
+	}
+
 // The main function, which is executed once per pixel.
 void main()  {
     // Prepare the circle parameters, cycling the circle size over time.
@@ -112,7 +121,7 @@ void main()  {
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
 	//	vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0) + vec2(radius/3.0,0.0);
 vec2 screenPos2 = gl_FragCoord.xy - (resolution.xy / 2.0);
-		vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
+vec2 screenPos3 = gl_FragCoord.xy/resolution.xy;
 vec2 screenPos4 = gl_FragCoord.xy - (resolution.xy) * vec2(mouse.x,1.0 - mouse.y);
 
 
@@ -128,8 +137,8 @@ vec2 screenPos4 = gl_FragCoord.xy - (resolution.xy) * vec2(mouse.x,1.0 - mouse.y
 	vec2 st = gl_FragCoord.xy/resolution.xy;
 	  st.x *= resolution.x/resolution.y;
 
-vec3 noisecolor = noiser(pos,0.01);
-vec3 noisecolor2 = noiser(st,5.0);
+vec3 noisecolor = noiser(uv,1.0);
+vec3 noisecolor2 = noiser(st,10.0);
 
 
 
@@ -179,12 +188,12 @@ uv.y = (1.0 -uv.y) * step(mobiletest,0.9) + uv.y * step(0.9,mobiletest);
 	vec3 texColor = texture2D(tex0, uv, -32.0).rgb;
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
-	float edge = radius/2.0 + (radius * 2.0 * noisecolor2.x * sin(u_time) * (1.0-d2));//(radius * (noisecolor.x) * noisecolor2.x); // random sizes // generate different si
+	float edge = radius/4.0 + (radius*2.0 * noisecolor2.x * texColor.x);//(radius * (noisecolor.x) * noisecolor2.x); // random sizes // generate different si
 // float edge2 = radius;
 //
 // float edge3 = screenPos4;
 
-
+//float d = box(pos,vec2(edge,edge),0.5); // squares
 float d = ComputeCircle(pos, center, edge, 0.5); //circles
 
 //	float d = box(screenPos2, vec2(edge/3.0,edge) , 0.5); //circles
@@ -196,7 +205,15 @@ float d = ComputeCircle(pos, center, edge, 0.5); //circles
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
     vec3 col = mix(vec3(1.0), bg, (d)); //1.-d for rect
 		vec3 mask = vec3(d2,d2,d2);
-    vec3 red = vec3(0.0,col.y,0.);
+
+
+		vec3 red = hsb2rgb(vec3(1.-noisecolor.x,1.0,1.0));
+
+		vec3 red2 = mix(red, bg, noisecolor.x);
+
+		float lerpcol = lerp(col.x, col.x * red2.x , texColor.x);
+
+
 
 		//float redmask = col.x * step(mask.x,0.99) + 0.0 * step(0.99,mask.x);
 	vec3 redmask = mix(red,bg,mask.x);
@@ -204,6 +221,6 @@ float d = ComputeCircle(pos, center, edge, 0.5); //circles
 
 
     // Set the final fragment color.
-	  gl_FragColor = vec4(red, 1.0);
+	  gl_FragColor = vec4(vec3(lerpcol,0.,0.), 1.0);
 	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }

@@ -10,7 +10,7 @@ let camaspect;
 var isMobile = false;
 var isAndroid = false;
 
-let redpg, greenpg, bluepg, alphapg, campg;
+let redpg, greenpg, bluepg, alphapg, campg, drawpg;
 
 let max_distance;
 
@@ -36,11 +36,9 @@ function preload(){
   if (/android/i.test(navigator.userAgent)) {
     isAndroid = true;
   }
-
   redShader = loadShader('effect.vert', 'red.frag');
   greenShader = loadShader('effect.vert', 'green.frag');
   blueShader = loadShader('effect.vert', 'blue.frag');
-
 }
 
 function setup() {
@@ -64,8 +62,46 @@ function setup() {
   greenpg = createGraphics(width, height, WEBGL);
   bluepg = createGraphics(width, height, WEBGL);
   campg = createGraphics(width, height,WEBGL);
+  drawpg = createGraphics(width, height);
+
+
+
 //  alphapg = createGraphics(width, height, WEBGL);
 
+}
+
+function drawLayer(p) {
+//p.noStroke();
+//p.fill(255,40);
+//if(mouseIsPressed){
+//drawGradient(p,200,mouseX,mouseY);
+drawpg.background(0);
+//}
+let c1 = color(0);
+let  c2 = color(255);
+setGradient(p, c1, c2);
+}
+
+function drawGradient(p,dim,x, y) {
+  let radius = dim / 2;
+  for (let r = radius; r > 0; --r) {
+    p.fill(255,1);
+    p.ellipse(x, y, r, r);
+  }
+}
+
+
+function setGradient(p, c1, c2) {
+  // noprotect
+  noFill();
+  for (var x = 0; x < p.width; x++) {
+    var inter1 = map(x, 0, 300, 1, 0);
+    var c = lerpColor(c1, c2, inter1);
+    p.stroke(c);
+    p.line(x+mouseX, 0, x+mouseX, height);
+    p.line(mouseX-x, 0, mouseX-x, height);
+
+  }
 }
 
 
@@ -73,11 +109,13 @@ function setup() {
 function draw() {
   background(0);
   smooth();
+
+  drawLayer(drawpg);
   blendMode(SCREEN);
   //mldraw();
 //imageaspectratiomain(campg);
 
-  radius = 50;//map(mouseX,0,width,100,1000);
+  radius = 20;//map(mouseX,0,width,100,1000);
 //radius = avg(lastD);
 //alph();
 
@@ -100,11 +138,11 @@ let targetX = mouseX;
     let my = map(y, 0, height, 0, 1);
 
   // lets just send the cam to our shader as a uniform
-  redShader.setUniform('tex0', campg);
+  redShader.setUniform('tex0', drawpg);
   redShader.setUniform('resolution', [width, height]);
   redShader.setUniform('tileno', tileno);
   redShader.setUniform('radius', radius);
-  redShader.setUniform('u_time', frameCount * 0.00125);
+  redShader.setUniform('u_time', frameCount * 0.0125);
   redShader.setUniform('isMobile', isMobile);
   redShader.setUniform('mouse', [mx, my]);
 
@@ -112,21 +150,21 @@ let targetX = mouseX;
   //redShader.setUniform('tex1', alphapg);
 
 
-  greenShader.setUniform('tex0', campg);
+  greenShader.setUniform('tex0', drawpg);
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
-  greenShader.setUniform('u_time', frameCount * 0.0025);
+  greenShader.setUniform('u_time', frameCount * 0.025);
   greenShader.setUniform('mouse', [mx, my]);
 
 //  greenShader.setUniform('tex1', alphapg);
 
 
-  blueShader.setUniform('tex0', campg);
+  blueShader.setUniform('tex0', drawpg);
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
-  blueShader.setUniform('u_time', frameCount * 0.005);
+  blueShader.setUniform('u_time', frameCount * 0.05);
   blueShader.setUniform('mouse', [mx, my]);
 
   //blueShader.setUniform('tex1', alphapg);
