@@ -93,7 +93,7 @@ function draw() {
   //mldraw();
   //imageaspectratio(campg);
 
-  radius = 10; //map(mouseX,0,width,1,10);//
+  radius = map(sin(frameCount*0.0005),-1,1,4,5);//5;
 //radius = avg(lastD);
 //alph();
 
@@ -141,7 +141,7 @@ function draw() {
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = 0;//atan2(avg(lastlefteyeX) - height / 2, avg(lastlefteyeY) - width / 2) - 3.0;
+  let angle = 0.25*(sin(frameCount*0.0005));//atan2(mouseY - height / 2, mouseX - width / 2);
 
 
 imageMode(CENTER);
@@ -149,21 +149,21 @@ imageMode(CENTER);
 // var RedMaskedImage = pgMask(redpg, maskpg);
 // image(RedMaskedImage, 0, 0);
 push();
-rotate(-.17)
+rotate(-.17 * angle);
 
 
 image(redpg,0,0);
 pop();
 
 push();
-rotate(-.35);
+rotate(-.35* angle);
 // var GreenMaskedImage = pgMask(greenpg, maskpg);
 // image(GreenMaskedImage, 0, 0);
 image(greenpg,0, 0);
 pop();
 
 push();
-rotate(-.7);
+rotate(-.7*  angle);
 image(bluepg,0, 0);
 pop();
 }

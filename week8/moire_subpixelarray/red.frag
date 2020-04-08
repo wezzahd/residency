@@ -203,7 +203,7 @@ vec3 texColor = hsb2rgb(vec3(1.0,1.0,1.0));
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
 	float edge = ((radius*2.0/3.0) + (1.0) *sin(u_time*0.05)); // random sizes // generate different si
-float edge2 = ((radius*2.0) * (1.1));
+float edge2 = ((radius*2.0) * (1.5));
 	//float d = ComputeCircle(pos, center, edge , 0.5); //circles
 	//float d = box(pos, vec2( (radius*2./3.0), radius*2.0), 0.5); // rectangles
 
