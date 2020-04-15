@@ -20,6 +20,8 @@ var tileno = 2.;
 
 var radius = 150.;
 
+let angle;
+
 
 function preload(){
   // load the shader
@@ -93,7 +95,7 @@ function draw() {
   //mldraw();
   //imageaspectratio(campg);
 
-  radius = map(sin(frameCount*0.0005),-1,1,4,5);//5;
+  radius = map(sin(frameCount*0.0005),-1,1,4.7,5.0);//5;
 //radius = avg(lastD);
 //alph();
 
@@ -141,8 +143,12 @@ function draw() {
   greenpg.rect(0,0,width, height);
   bluepg.rect(0,0,width, height);
 
-  let angle = 0.25*(sin(frameCount*0.0005));//atan2(mouseY - height / 2, mouseX - width / 2);
 
+if (mouseIsPressed){
+ angle = atan2(mouseY - height / 2, mouseX - width / 2);
+}else{
+  angle = 0.25*(sin(frameCount*0.0005));//atan2(mouseY - height / 2, mouseX - width / 2);
+}
 
 imageMode(CENTER);
 
