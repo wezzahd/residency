@@ -1,5 +1,4 @@
 var img;
-var drawpg;
 var colour;
 var text;
 
@@ -20,8 +19,6 @@ function firebasesetup() {
   firebase.analytics();
 
   database = firebase.database();
-
-  drawpg = createGraphics(width, height);
 
 }
 
