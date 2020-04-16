@@ -24,7 +24,7 @@ function firebasesetup() {
 
 function drawellipse() {
   noStroke();
-  colour = img.get(mouseX, mouseY);
+  colour = img.get(width - mouseX, mouseY); //flip for cam
 
   fill(255, 127);
   ellipse(mouseX, mouseY, 120, 120);
@@ -43,7 +43,7 @@ function setup() {
 }
 
 function didactic() {
-  text = createDiv('Donate-A-Pixel.  Use mouse over image to select pixel.  Mouse click to send pixel info.')
+  text = createDiv('Use mouse over image to select pixel.  Mouse click to send pixel info.')
   text.class("didactic");
   text.position(0, 0);
 }
