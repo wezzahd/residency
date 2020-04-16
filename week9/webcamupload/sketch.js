@@ -43,7 +43,7 @@ function setup() {
 }
 
 function didactic() {
-  text = createDiv('Donate-A-Pixel.  Move mouse to select pixel.  Mouse click to send pixel info.')
+  text = createDiv('Donate-A-Pixel.  Use mouse over image to select pixel.  Mouse click to send pixel info.')
   text.class("didactic");
   text.position(0, 0);
 }
