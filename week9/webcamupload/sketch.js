@@ -40,6 +40,7 @@ function setup() {
   img.hide();
   firebasesetup();
   didactic();
+	pixelDensity(1);
 }
 
 function didactic() {
