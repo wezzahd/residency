@@ -50,6 +50,13 @@ class ParticleSystem {
 
         if (particle !== other && particle.intersects(other)) {
           particle.intersectForce();
+        //  push();
+          noFill();
+          strokeWeight(0.5);
+          stroke(255,particle.lifespan);
+          line(particle.position.x,particle.position.y, other.position.x,other.position.y);
+
+
         }
       }
     }

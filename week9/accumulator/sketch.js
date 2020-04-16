@@ -90,11 +90,11 @@ if (/android/i.test(navigator.userAgent)) {
 function setup() {
 
   if (isMobile == false) {
-    skip = 15;
+    skip = 200;
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.style('display', 'block');
   } else {
-    skip = 15;
+    skip = 200;
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.style('display', 'block');
   }
@@ -360,7 +360,7 @@ function blackhole_draw() {
   ps.run();
 
  // if (intersect_toggle == true) {
- //   // ps.intersection();
+ ps.intersection();
  // }
 
   ps.behaviors();
@@ -374,19 +374,19 @@ function blackhole_draw() {
 
   }
 
-  if (LFO == true) {
-    ps.return_home();
-  }
-
-
-
-  var sine = abs(1 * sin(TWO_PI * frameCount / 1600));
-
-  if (sine <= 0.01) {
-    LFO = true;
-  } else {
-    LFO = false;
-  }
+  // if (LFO == true) {
+  //   ps.return_home();
+  // }
+  //
+  //
+  //
+  // var sine = abs(1 * sin(TWO_PI * frameCount / 1600));
+  //
+  // if (sine <= 0.01) {
+  //   LFO = true;
+  // } else {
+  //   LFO = false;
+  // }
 
   stroke(255);
   noFill();
