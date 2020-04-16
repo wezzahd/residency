@@ -15,7 +15,7 @@ class Particle {
     this.highlight = false;
     this.maxspeed = 2;
     this.maxforce = 1;
-    this.resize = random(5, 10) * (1/particlecount);
+    this.resize = random(1, 3) * (1/particlecount);
     this.strokeweight = 1.0;
     this.selected = false;
     this.period = (this.rand + 1) * 600;
@@ -216,9 +216,9 @@ class Particle {
     stroke(this.stroke_col);
     fill(this.fill_col);
     strokeWeight(this.strokeweight);
-    ellipseMode(CENTER); //or rect?
-    ellipse(this.position.x, this.position.y,
-      (this.size_v2));
+    rectMode(CENTER); //or rect?
+    rect(this.position.x, this.position.y,
+      (this.size_v2),this.size_v2);
     //pop();
   }
 
