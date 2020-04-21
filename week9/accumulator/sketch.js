@@ -64,7 +64,7 @@ function centerCanvas() {
 p5.disableFriendlyErrors = true; // disables FES
 
 function preload() {
-//  capture = loadImage("blackhole_v2.jpg");
+capture = loadImage("test.png");
 
 
 
@@ -424,9 +424,9 @@ if (main_animation == true) {
   resizeCanvas(windowWidth, windowHeight);
   //centerCanvas();
   loading_capture();
-    pg = createGraphics(width, height);
+  //  pg = createGraphics(width, height);
 
-  loadingScreen();
+//  loadingScreen();
 
 
 

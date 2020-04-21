@@ -53,8 +53,7 @@ void main()  {
     // The position is adjusted so that a circle is in the center of the display.
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
-    float d = ComputeCircle(pos, center, radius/2., 0.5);
-
+    float d = box(pos, vec2(radius*1.5,radius*1.5), 0.5);
     // Compute "pixelated" (stepped) texture coordinates using the floor() function.
     // The position is adjusted to match the circles, i.e. so a pixelated block is at the center of the
     // display.
@@ -75,7 +74,7 @@ void main()  {
 	// Calculate the color based on the circle shape, mixing between that color and a background color.
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
-    vec3 col = mix(texColor, bg, d);
+    vec3 col = mix(texColor, bg, 1.-d);
     vec3 blue = vec3(0.,0.,col.y);
 
     // Set the final fragment color.

@@ -1,0 +1,41 @@
+html, body {
+  height: 100.1%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+
+  /* This centers our sketch vertically. */
+  align-items: center;
+}
+
+canvas {
+  display: block;
+}
+
+.didactic {
+	font-family: monospace;
+	color: #000000;
+	font-size: 14pt;
+  overflow:auto;
+}
+
+.didacticcenter {
+	font-family: monospace;
+	color: #000000;
+	font-size: 14pt;
+  text-align: center;
+  display: block
+}
+
+.didacticleft {
+	font-family: monospace;
+	color: #000000;
+	font-size: 14pt;
+  text-align: left;
+  display: block
+}
