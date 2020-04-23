@@ -5,7 +5,7 @@ let radius, colour;
 
 function shaderPreload() {
   // load the shader
-  pixelShader = loadShader('/shader/effect.vert', '/shader/pixelfrag.frag');
+  pixelShader = loadShader('shader/effect.vert', 'shader/pixelfrag.frag');
 }
 
 function shaderSetup() {
