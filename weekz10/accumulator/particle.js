@@ -161,7 +161,7 @@ class Particle {
       this.fill_alpha += .5;
     }
 
-if (pixelShaderToggle && this.fill_alpha > 20 && this.lifespan > 20 && this.strokeweight < 3.0){
+if (pixelShaderToggle && this.fill_alpha > 40 && this.lifespan > 40 && this.strokeweight < 3.0){
  this.lifespan -= 1.0;
   this.fill_alpha -= 1.0;
   //this.strokeweight += 1.0;
