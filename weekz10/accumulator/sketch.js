@@ -161,7 +161,16 @@ function particle_draw() {
   background(0);
 
 
-  blendMode(ADD);
+
+blendMode(ADD);
+
+// if (pixelShaderToggle){
+//   push();
+//   noStroke();
+//   fill(127,127);
+//   //rectMode(CENTER);
+//   rect(0,0,width,height);
+// }
 
   noCursor();
 
