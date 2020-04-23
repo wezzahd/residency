@@ -14,7 +14,7 @@ class Particle {
     this.maxsize = skip * (1/(particlecount));//random(1, 3) * (height/12) ;//40 //50;
     this.radius = 25;
     this.highlight = false;
-    this.maxspeed = 1;
+    this.maxspeed = 3;
     this.maxforce = 1;
     this.resize = random(1, 3) * (1/particlecount);
     this.strokeweight = 1.0;
