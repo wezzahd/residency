@@ -154,17 +154,17 @@ class Particle {
    //    this.maxsize = this.maxsizepercent[int(random(0,3))];
    //  }
 
-    if (this.lifespan > (255 - (particlecount/2.0)) && this.local_force == true ) {
+    if (this.lifespan > (150 - (particlecount/2.0)) && this.local_force == true ) {
       this.lifespan -= 0.5;
     }
-    if (this.fill_alpha > (255 - (particlecount/2.0)) && this.local_force == true ) {
+    if (this.fill_alpha > (150 - (particlecount/2.0)) && this.local_force == true ) {
       this.fill_alpha -= 1.0;
     }
 
-    if (this.lifespan >= 0.0 && this.lifespan <= (255 - (particlecount/2.0)) && this.local_force == true ) {
+    if (this.lifespan >= 0.0 && this.lifespan <= (150- (particlecount/2.0)) && this.local_force == true ) {
       this.lifespan += .5;
     }
-    if (this.fill_alpha >= 0.0 && this.fill_alpha <= (255 - (particlecount/2.0)) && this.local_force == true) {
+    if (this.fill_alpha >= 0.0 && this.fill_alpha <= (150 - (particlecount/2.0)) && this.local_force == true) {
       this.fill_alpha += .5;
     }
 
