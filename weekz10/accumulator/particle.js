@@ -1,12 +1,13 @@
 class Particle {
-  constructor(x, y, rand, img_) {
-    this.position = createVector(x, y);
+  constructor(x, y, rand, img_, devWidth,devHeight) {
+    this.origposition = createVector(x,y);
+    this.position = createVector(map(x,0,devWidth,0,width), map(y,0,devHeight,0,height));
     this.velocity = createVector();
     this.velocity_v2 = createVector(random(-2, 2), random(-2, 2));
     this.acceleration = createVector();
-    this.home = this.position.copy();
+    this.home = this.origposition.copy();
     this.lifespan = 0.0;
-    this.fill_alpha = 0.;
+    this.fill_alpha = 0.0;
     this.rand = rand;
     this.img = img_;
     this.size_v2 = skip;
@@ -22,6 +23,9 @@ class Particle {
     this.fillperiod = (this.rand + 1) ;
     this.amplitude = this.lifespan;
     this.local_force = true;
+    this.origWidth = devWidth;
+    this.origHeight = devHeight;
+
   }
 
   colour(rand) {
@@ -45,7 +49,6 @@ class Particle {
 
     this.applyForce(flee);
   }
-
 
   flee() {
     var desired = p5.Vector.sub(this.mouse, this.position);
@@ -81,7 +84,6 @@ class Particle {
 
   }
 
-
   intersects(other) {
     this.dir = p5.Vector.sub(this.position, other.position);
     return (this.dir.magSq() < ((this.size_v2) * (this.size_v2)) && this.local_force == true &&
@@ -89,7 +91,7 @@ class Particle {
   }
 
   intersectForce() {
-    this.dir.setMag(.01);
+    this.dir.setMag(0.01);
     this.applyForce(this.dir);
   }
 
@@ -103,6 +105,10 @@ class Particle {
     this.acceleration.mult(0);
     this.lifespan -= 0.0;
     this.velocity.limit(5);
+
+    this.home.x = map(this.origposition.x,0,this.origWidth,0,width);
+    this.home.y = map(this.origposition.y,0,this.origHeight,0,height);
+
 
     this.c = 0.01;
     this.speed = this.velocity.mag();

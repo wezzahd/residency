@@ -52,6 +52,8 @@ var instructionpg;
 var text_dict, link, text1, text2, text3;
 var cambuttonX,cambuttonY;
 
+let alignSlider, cohesionSlider, separationSlider;
+
 document.addEventListener('touchmove', function(event) {
   if (event.scale !== 1) {
     event.preventDefault();
@@ -87,11 +89,19 @@ function setup() {
 
   if (isMobile == false) {
     skip = 200;
-    cnv = createCanvas(windowWidth, windowHeight);
+    cnv = createCanvas(windowWidth, windowHeight-100);
     cnv.style('display', 'block');
+
+    alignSlider = createSlider(0, 2, 1.5, 0.1);
+    alignSlider.position(0,windowHeight-50);
+      cohesionSlider = createSlider(0, 2, 1, 0.1);
+      cohesionSlider.position(200,windowHeight-50);
+      separationSlider = createSlider(0, 2, 2, 0.1);
+      separationSlider.position(400,windowHeight-50);
+
   } else {
     skip = 200;
-    cnv = createCanvas(windowWidth, windowHeight);
+    cnv = createCanvas(windowWidth-100, windowHeight-100);
     cnv.style('display', 'block');
   }
 
@@ -116,7 +126,7 @@ function ready() {
 
 function captureEvent() {
   ps = new ParticleSystem(createVector(width / 2, height / 2), img);
-  repeller = new Repeller(width / 2, height / 2);
+//  repeller = new Repeller(width / 2, height / 2);
 }
 
 function draw() {
@@ -188,7 +198,7 @@ function particle_draw() {
   ps.run();
 
   if (!pixelShaderToggle && !instruction_toggle) {
-    ps.intersection();
+  ps.intersection();
   }
 
   if (pixelShaderToggle || instruction_toggle) {
@@ -198,8 +208,8 @@ function particle_draw() {
 
 
 
-  ps.behaviors();
-  ps.applyRepeller(repeller);
+//  ps.behaviors();
+  //ps.applyRepeller(repeller);
 
 
 

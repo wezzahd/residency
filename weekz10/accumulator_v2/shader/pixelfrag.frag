@@ -35,6 +35,10 @@ float ComputeCircle(vec2 pos, vec2 center, float radius, float feather){
     return smoothstep(start, end, dist);
 }
 
+float lerp(float from, float to, float rel){
+  return ((1.0 - rel) * from) + (rel * to);
+}
+
 // The main function, which is executed once per pixel.
 void main()  {
 
@@ -47,14 +51,22 @@ void main()  {
     // The position is adjusted so that a circle is in the center of the display.
     vec2 screenPos = gl_FragCoord.xy - (resolution.xy / 2.0) - vec2(radius);
 		vec2 mousePosition = gl_FragCoord.xy - (resolution.xy) * vec2(u_mouse.x,1.0 - u_mouse.y);
+    vec2 st = gl_FragCoord.xy /resolution.xy;
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 
-		float d = box(pos, vec2(radius*1.5,radius*1.5), 0.5);
+		//float d = box(pos, vec2(radius/4.0,radius/4.0), 0.5);
 
 		float mousecirc = ComputeCircle(mousePosition,center, 50.0, 1.0);
-		float mousecirc2 = ComputeCircle(mousePosition,center, 60.0, 1.0);
+		float mousecirc2 = ComputeCircle(mousePosition,center, 60.0, 3.0);
 
+  //  float dis =  distance(pos,mousePosition);//abs((1.0 - distance(pos,mousePosition)));
+
+    vec2 sizer = vec2(radius/4.0);
+
+    //sizer = sizer + dis ;
+
+    float d = box(pos, sizer, 0.5);
 
     // Compute "pixelated" (stepped) texture coordinates using the floor() function.
     // The position is adjusted to match the circles, i.e. so a pixelated block is at the center of the
@@ -74,14 +86,17 @@ void main()  {
 		vec3 mouseColor = texture2D(tex0, u_mouse).rgb;
 
     vec3 bg  = vec3(0.0, 0.0, 0.0);
+
+//float select = lerp(0.3,1.0,mousecirc);
+
     vec3 col = mix(texColor, bg, 1.0-d);
 
-		vec3 mouseCol = mix(mouseColor,vec3(.5),mousecirc) + (vec3(mousecirc2)*0.5);
+	//	vec3 mouseCol = mix(mouseColor,vec3(.5),mousecirc) + (vec3(mousecirc2)*0.5);
 
-		vec3 colout = mix(col,mouseCol,1.0-mousecirc2);
+	//	vec3 colout = mix(col,mouseCol,1.0-mousecirc2);
 
   //  vec3 col = vec3(col.r,col.g,col.b);
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(colout, 1.0);
+	   gl_FragColor = vec4(col, 1.0);
 }

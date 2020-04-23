@@ -6,9 +6,9 @@ class ParticleSystem {
     this.particles = [];
   }
 
-  addParticle(x, y, rand, img) {
+  addParticle(x, y, rand, img, devWidth, devHeight) {
     if (x !== undefined && y !== undefined) {
-      this.particles.push(new Particle(x, y, rand, img));
+      this.particles.push(new Particle(x, y, rand, img, devWidth, devHeight));
      particlecount = this.particles.length;
     } else {
       this.particles.push(new Particle(this.origin.x, this.origin.y));
@@ -53,8 +53,9 @@ class ParticleSystem {
         //  push();
           noFill();
           strokeWeight(0.5);
-          stroke(255,particle.lifespan);
-          line(particle.position.x,particle.position.y, other.position.x,other.position.y);
+          stroke(particle.stroke_col,particle.lifespan);
+
+        line(particle.position.x,particle.position.y, other.position.x,other.position.y);
 
 
         }
