@@ -147,23 +147,23 @@ class Particle {
    //    this.maxsize = this.maxsizepercent[int(random(0,3))];
    //  }
 
-    if (this.lifespan > 60 && this.local_force == true ) {
+    if (this.lifespan > (255 - (particlecount/2.0)) && this.local_force == true ) {
       this.lifespan -= 0.5;
     }
-    if (this.fill_alpha > 60.0 && this.local_force == true ) {
+    if (this.fill_alpha > (255 - (particlecount/2.0)) && this.local_force == true ) {
       this.fill_alpha -= 1.0;
     }
 
-    if (this.lifespan >= 0.0 && this.lifespan <= 60 && this.local_force == true ) {
+    if (this.lifespan >= 0.0 && this.lifespan <= (255 - (particlecount/2.0)) && this.local_force == true ) {
       this.lifespan += .5;
     }
-    if (this.fill_alpha >= 0.0 && this.fill_alpha <= 60.0 && this.local_force == true) {
+    if (this.fill_alpha >= 0.0 && this.fill_alpha <= (255 - (particlecount/2.0)) && this.local_force == true) {
       this.fill_alpha += .5;
     }
 
-if (pixelShaderToggle && this.fill_alpha > 30 && this.lifespan > 30 ){
- this.lifespan -= 0.5;
-  this.fill_alpha -= 0.5;
+if (pixelShaderToggle && this.fill_alpha > 30 && this.lifespan > 30 &&  this.local_force == false ){
+ this.lifespan -= 2.0
+  this.fill_alpha -= 2.0;
   //this.strokeweight += 1.0;
 }
 
