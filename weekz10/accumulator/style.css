@@ -5,6 +5,7 @@ html, body {
 body {
   margin: 0;
   display: flex;
+  overflow: hidden; /* Hide scrollbars */
 
   /* This centers our sketch horizontally. */
   justify-content: center;
@@ -46,4 +47,5 @@ canvas {
 	font-size: 10pt;
   text-align: right;
   vertical-align: text-top;
+  overflow: hidden
 }
