@@ -78,7 +78,14 @@ class Particle {
   }
 
   intersectForce() {
-    this.dir.setMag(0.01);
+    this.power =500;
+    let d = this.dir.mag(); // Distance between objects
+    this.dir.normalize(); // Normalize vector (distance doesn't matter here, we just want this vector for direction)
+    d = constrain(d, 5, 100); // Keep distance within a reasonable range
+    let force = 1 * this.power / (d * d); // Repelling force is inversely proportional to distance
+    this.dir.mult(force); // Get force vector --> magnitude * direction
+  //  return dir;
+    //this.dir.setMag(0.01);
     this.applyForce(this.dir);
   }
 
@@ -97,14 +104,14 @@ class Particle {
     this.home.y = map(this.origposition.y,0,this.origHeight,0,height);
 
 
-    // this.c = 0.01;
-    // this.speed = this.velocity.mag();
-    // this.dragMagnitude = this.c * this.speed * this.speed;
-    // this.drag = this.velocity.copy();
-    // this.drag.mult(-1);
-    // this.drag.normalize();
-    // this.drag.mult(this.dragMagnitude);
-    // this.velocity.add(this.drag);
+    this.c = 0.01;
+    this.speed = this.velocity.mag();
+    this.dragMagnitude = this.c * this.speed * this.speed;
+    this.drag = this.velocity.copy();
+    this.drag.mult(-1);
+    this.drag.normalize();
+    this.drag.mult(this.dragMagnitude);
+    this.velocity.add(this.drag);
 
     this.colour(this.rand);
     this.d = dist(this.position.x, this.position.y, this.home.x, this.home.y);
