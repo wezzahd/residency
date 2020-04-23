@@ -62,7 +62,7 @@ void main()  {
 
   //  float dis =  distance(pos,mousePosition);//abs((1.0 - distance(pos,mousePosition)));
 
-    vec2 sizer = vec2(radius/3.0);
+    vec2 sizer = vec2(radius/4.0);
 
     //sizer = sizer + dis ;
 
@@ -95,8 +95,8 @@ void main()  {
 
 	//	vec3 colout = mix(col,mouseCol,1.0-mousecirc2);
 
-  //  vec3 col = vec3(col.r,col.g,col.b);
+//col = vec3(col.r,col.r,col.r);
 
     // Set the final fragment color.
-	   gl_FragColor = vec4(col, 1.0);
+	   gl_FragColor = vec4(col*5.0, 1.0);
 }

@@ -147,21 +147,25 @@ class Particle {
    //    this.maxsize = this.maxsizepercent[int(random(0,3))];
    //  }
 
-    if (this.lifespan > (200 - (particlecount/2.0)) && this.local_force == true) {
+    if (this.lifespan > (200 - (particlecount/2.0)) && this.local_force == true ) {
       this.lifespan -= 0.5;
     }
-    if (this.fill_alpha > 40.0 && this.local_force == true) {
+    if (this.fill_alpha > 40.0 && this.local_force == true ) {
       this.fill_alpha -= 1.0;
     }
 
-    if (this.lifespan >= 0.0 && this.lifespan <= (200-(particlecount/2.0)) && this.local_force == true) {
+    if (this.lifespan >= 0.0 && this.lifespan <= (200-(particlecount/2.0)) && this.local_force == true ) {
       this.lifespan += .5;
     }
     if (this.fill_alpha >= 0.0 && this.fill_alpha <= 40.0 && this.local_force == true) {
       this.fill_alpha += .5;
     }
 
-
+if (pixelShaderToggle && this.fill_alpha > 20 && this.lifespan > 20 && this.strokeweight < 3.0){
+ this.lifespan -= 1.0;
+  this.fill_alpha -= 1.0;
+  //this.strokeweight += 1.0;
+}
 
 
     // if (this.strokeweight > 1.0) {
@@ -200,19 +204,21 @@ class Particle {
       this.local_force = false;
     }
 
-    this.fill_col.setAlpha(this.fill_alpha + this.fill_alpha_osc);
-    this.stroke_col.setAlpha(this.lifespan + this.stroke_alpha_osc);
+    this.fill_col.setAlpha(this.fill_alpha);
+    this.stroke_col.setAlpha(this.lifespan);
     //console.log(this.stroke_col);
     //push();
     //translate(this.position.x * 1.4,this.position.y * 1.4)
     //scale(1.4);
+    push();
     stroke(this.stroke_col);
     fill(this.fill_col);
     strokeWeight(this.strokeweight);
     rectMode(CENTER); //or rect?
     rect(this.position.x, this.position.y,
       (this.size_v2),this.size_v2);
-    //pop();
+
+    pop();
   }
 
   isDead() {
