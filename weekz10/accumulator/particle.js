@@ -11,7 +11,7 @@ class Particle {
     this.rand = rand;
     this.img = img_;
     this.size_v2 = skip;
-    this.maxsize = (skip / (particlecount/1.5)) * 0.25 ;//random(1, 3) * (height/12) ;//40 //50;
+    this.maxsize = (skip / (particlecount/1.5)) * 4.0 ;//random(1, 3) * (height/12) ;//40 //50;
     this.radius = 25;
     this.highlight = false;
     this.maxspeed = 3;
