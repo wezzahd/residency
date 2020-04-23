@@ -58,6 +58,10 @@ document.addEventListener('touchmove', function(event) {
   }
 }, false);
 
+document.body.scrollTop = 0; // <-- pull the page back up to the top
+document.body.style.overflow = 'hidden';
+
+
 
 function centerCanvas() {
   var cnv_x = (windowWidth - width) / 2;
@@ -94,6 +98,8 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.style('display', 'block');
   }
+
+
 
   pixelDensity(1);
 
