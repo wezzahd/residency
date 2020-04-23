@@ -95,7 +95,7 @@ function draw() {
   //mldraw();
   //imageaspectratio(campg);
 
-  radius = map(sin(frameCount*0.0005),-1,1,4.7,5.0);//5;
+  radius = 20;//map(sin(frameCount*0.0005),-1,1,4.7,5.0);//5;
 //radius = avg(lastD);
 //alph();
 
