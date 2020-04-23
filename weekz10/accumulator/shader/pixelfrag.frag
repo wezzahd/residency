@@ -62,7 +62,7 @@ void main()  {
 
   //  float dis =  distance(pos,mousePosition);//abs((1.0 - distance(pos,mousePosition)));
 
-    vec2 sizer = vec2(radius/4.0);
+    vec2 sizer = vec2(radius/3.0);
 
     //sizer = sizer + dis ;
 
