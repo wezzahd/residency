@@ -91,7 +91,7 @@ class Particle {
     this.position.add(this.velocity);
     this.acceleration.mult(0);
     this.lifespan -= 0.0;
-    this.velocity.limit(5);
+    this.velocity.limit(this.maxspeed);
 
     this.home.x = map(this.origposition.x,0,this.origWidth,0,width);
     this.home.y = map(this.origposition.y,0,this.origHeight,0,height);
