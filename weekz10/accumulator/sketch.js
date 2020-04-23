@@ -293,6 +293,10 @@ function mousePressed() {
   if (mouseX > width - 75 && mouseX < width && mouseY > 50 && mouseY < 80 && isMobile == false) {
     let fs = fullscreen();
     fullscreen(!fs);
+    //Remove vert scroll bar in fullScreen
+     document.body.scrollTop = 0; // <-- pull the page back up to the top
+    document.body.style.overflow = 'hidden';
+
   }
 
   if (mouseX > width - 75 && mouseX < width && mouseY > 80 && mouseY < 110) {

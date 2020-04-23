@@ -44,7 +44,7 @@ class Particle {
   behaviors(px, py) {
     this.mouse = createVector(px, py);
     var flee = this.flee(this.mouse);
-    flee.mult(1.0);
+    flee.mult(-1.0);
 
 
     this.applyForce(flee);
@@ -69,19 +69,6 @@ class Particle {
    } else {
      return createVector(0, 0);
     }
-
-    // if (d < 100) {
-    //   desired.setMag(this.maxspeed);
-    //   desired.mult(10.0);
-    //   var steer = p5.Vector.sub(desired, this.velocity);
-    //   steer.limit(this.maxforce);
-    //   //this.local_force = true;
-    //   return steer;
-    // } else {
-    //   return createVector(0, 0);
-    // }
-
-
   }
 
   intersects(other) {
@@ -160,14 +147,14 @@ class Particle {
    //    this.maxsize = this.maxsizepercent[int(random(0,3))];
    //  }
 
-    if (this.lifespan > (255 - particlecount) && this.local_force == true) {
+    if (this.lifespan > (255 - (particlecount/2.0)) && this.local_force == true) {
       this.lifespan -= 0.5;
     }
     if (this.fill_alpha > 40.0 && this.local_force == true) {
       this.fill_alpha -= 1.0;
     }
 
-    if (this.lifespan >= 0.0 && this.lifespan <= (255-particlecount) && this.local_force == true) {
+    if (this.lifespan >= 0.0 && this.lifespan <= (255-(particlecount/2.0)) && this.local_force == true) {
       this.lifespan += .5;
     }
     if (this.fill_alpha >= 0.0 && this.fill_alpha <= 40.0 && this.local_force == true) {
