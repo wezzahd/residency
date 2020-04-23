@@ -97,14 +97,14 @@ class Particle {
     this.home.y = map(this.origposition.y,0,this.origHeight,0,height);
 
 
-    this.c = 0.01;
-    this.speed = this.velocity.mag();
-    this.dragMagnitude = this.c * this.speed * this.speed;
-    this.drag = this.velocity.copy();
-    this.drag.mult(-1);
-    this.drag.normalize();
-    this.drag.mult(this.dragMagnitude);
-    this.velocity.add(this.drag);
+    // this.c = 0.01;
+    // this.speed = this.velocity.mag();
+    // this.dragMagnitude = this.c * this.speed * this.speed;
+    // this.drag = this.velocity.copy();
+    // this.drag.mult(-1);
+    // this.drag.normalize();
+    // this.drag.mult(this.dragMagnitude);
+    // this.velocity.add(this.drag);
 
     this.colour(this.rand);
     this.d = dist(this.position.x, this.position.y, this.home.x, this.home.y);
