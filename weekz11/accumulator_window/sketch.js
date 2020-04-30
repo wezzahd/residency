@@ -190,7 +190,7 @@ function particle_draw() {
   blendMode(BLEND);
   background(23, 73, 219);
 
-  noCursor();
+  //noCursor();
 
   // The touches array holds an object for each and every touch
   // The array length is dynamic and tied to the number of fingers
@@ -220,7 +220,7 @@ function particle_draw() {
 
    if (isMobile == false) {
 
-   image(pgMask(maskpg), 0, 0);
+image(pgMask(maskpg), 0, 0);
 
  }
 

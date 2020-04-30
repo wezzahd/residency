@@ -116,6 +116,9 @@ update() {
   this.home.x = map(this.origposition.x, 0, this.origWidth, 0, width);
   this.home.y = map(this.origposition.y, 0, this.origHeight, 0, height);
 
+if (this.home.y < 0 || this.home.y > height){
+ this.home.y = constrain(this.home.y,0, height-(this.rand));
+}
 
   // this.c = 0.007;
   // this.speed = this.velocity.mag();
