@@ -94,13 +94,24 @@ function preload() {
 function setup() {
 
   if (isMobile == false) {
-    skip = 200;
+    skip = 200;//50; //30 if not running facedetection
     cnv = createCanvas(windowWidth, windowHeight);
+    cnv.id('mycanvas');
     cnv.style('display', 'block');
   } else {
     skip = 200;
+      if (windowWidth < windowHeight){
+        inner = iosInnerHeight();
+        cnv = createCanvas(windowWidth, inner);
+        cnv.id('mycanvas');
+        cnv.style('display', 'block');
+        console.log("portrait")
+  }else {
     cnv = createCanvas(windowWidth, windowHeight);
+    cnv.id('mycanvas');
     cnv.style('display', 'block');
+     console.log("landscape")
+}
   }
 
 
@@ -221,12 +232,23 @@ function touchMoved(event) {
 
 function windowResized() {
 
+    if (!isMobile) {
+
     resizeCanvas(windowWidth, windowHeight);
     centerCanvas();
     instructionpg.resizeCanvas(windowWidth, windowHeight);
     maskpg.resizeCanvas(windowWidth, windowHeight);
     masker();
     buttonSetup();
+  }else{
+    inner = iosInnerHeight();
+    resizeCanvas(windowWidth, inner);
+    centerCanvas();
+    instructionpg.resizeCanvas(windowWidth, inner);
+    maskpg.resizeCanvas(windowWidth, inner);
+    masker();
+    buttonSetup();
+  }
 
 }
 
