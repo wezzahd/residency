@@ -202,7 +202,7 @@ vec3 texColor = hsb2rgb(vec3(1.0,1.0,1.0));
 
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
-	float edge = ((radius*2.0/3.0) + (1.0) *sin(u_time*0.05)); // random sizes // generate different si
+	float edge = (radius* 2.0/6.0); // random sizes // generate different si
 float edge2 = ((radius*2.0) * (1.5));
 	//float d = ComputeCircle(pos, center, edge , 0.5); //circles
 	//float d = box(pos, vec2( (radius*2./3.0), radius*2.0), 0.5); // rectangles
@@ -214,7 +214,7 @@ float edge2 = ((radius*2.0) * (1.5));
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
-    vec3 col = mix(texColor, bg, (1.-d)); //1.-d for rect
+    vec3 col = mix(vec3(1.0), bg, (1.-d)); //1.-d for rect
 		vec3 mask = vec3(d2,d2,d2);
     vec3 red = vec3(col.x,0.,0.);
 
@@ -222,7 +222,7 @@ float edge2 = ((radius*2.0) * (1.5));
 	   vec3 redmask = mix(red,bg,1.-noisecolor.x);
 	//vec3 texColor2 = texture2D(tex0, vTexCoord).rgb; //need logic to flip uv on Desktop (not need for mobile)
 
-vec3 redmaskout = mix(redmask,bg,1.-maskColor.x);
+vec3 redmaskout = mix(red,bg,1.-maskColor.x);
 
 
 

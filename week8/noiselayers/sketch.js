@@ -76,8 +76,9 @@ function draw() {
   blendMode(SCREEN);
   //mldraw();
 //imageaspectratiomain(campg);
+noCursor();
 
-  radius = width/10;//map(mouseX,0,width,100,1000);
+  radius = width/2;//map(mouseX,0,width,100,1000);
 //radius = avg(lastD);
 //alph();
 

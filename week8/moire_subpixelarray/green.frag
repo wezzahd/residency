@@ -201,7 +201,7 @@ vec3 texColor = hsb2rgb(vec3(1.0-noisecolor.x,1.0-noisecolor.y,1.0));
 
 	//vec3 alphmask = texture2D(tex1, uv, -32.0).rgb; //pixellate alphamask
 
-	float edge = ((radius*2.0/3.0) + (1.0) * sin(u_time*0.05)); // random sizes // generate different si
+	float edge = (radius* 2.0/6.0); // random sizes // generate different si
 float edge2 = ((radius*2.0) * (1.5));
 	//float d = ComputeCircle(pos, center, edge , 0.5); //circles
 	//float d = box(pos, vec2( (radius*2./3.0), radius*2.0), 0.5); // rectangles
@@ -211,7 +211,7 @@ float edge2 = ((radius*2.0) * (1.5));
     // NOTE: Set the mix factor to 0.0 to see the pixelating effect directly, without the circles.
     vec3 bg  = vec3(0.0, 0.0, 0.0);
 		//vec3 gr = vec3(0.0,texColor.y,0.0);
-    vec3 col = mix(texColor, bg, (1.-d)); //1.-d for rect
+    vec3 col = mix(vec3(1.0), bg, (1.-d)); //1.-d for rect
 		vec3 mask = vec3(d2,d2,d2);
     vec3 green = vec3(0., col.y ,0.);
 
@@ -224,6 +224,6 @@ vec3 greenmaskout = mix(greenmask,bg,1.-maskColor.x);
 
 
     // Set the final fragment color.
-	  gl_FragColor = vec4(greenmaskout,1.0);
+	  gl_FragColor = vec4(green,1.0);
 	// gl_FragColor = vec4(mobiletest,mobiletest,mobiletest, 1.0); //debug
 }

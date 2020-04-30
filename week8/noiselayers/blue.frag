@@ -122,7 +122,7 @@ vec2 screenPos4 = gl_FragCoord.xy - (resolution.xy) * vec2(mouse.x,1.0 - mouse.y
 
     vec2 pos = mod(screenPos, vec2(diameter)) - vec2(radius);
 
-	float d2 = ComputeCircle(screenPos4, center, 200.0 , 100.0);
+	float d2 = ComputeCircle(screenPos4, center, 100.0 , 100.0);
 
 
 	vec2 st = gl_FragCoord.xy/resolution.xy;

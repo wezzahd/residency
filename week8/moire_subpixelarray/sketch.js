@@ -95,7 +95,7 @@ function draw() {
   //mldraw();
   //imageaspectratio(campg);
 
-  radius = 30;//map(sin(frameCount*0.0005),-1,1,4.7,5.0);//5;
+  radius = 100;//map(sin(frameCount*0.0005),-1,1,4.7,5.0);//5;
 //radius = avg(lastD);
 //alph();
 
@@ -121,7 +121,7 @@ function draw() {
   greenShader.setUniform('resolution', [width, height]);
   greenShader.setUniform('tileno', tileno);
   greenShader.setUniform('radius', radius);
-  greenShader.setUniform('u_time', frameCount * 0.025);
+  greenShader.setUniform('u_time', frameCount * 0.05);
 
 //  greenShader.setUniform('tex1', alphapg);
 
@@ -130,7 +130,7 @@ function draw() {
   blueShader.setUniform('resolution', [width, height]);
   blueShader.setUniform('tileno', tileno);
   blueShader.setUniform('radius', radius);
-  blueShader.setUniform('u_time', frameCount * 0.0125);
+  blueShader.setUniform('u_time', frameCount * 0.05);
 
   //blueShader.setUniform('tex1', alphapg);
 
@@ -144,33 +144,34 @@ function draw() {
   bluepg.rect(0,0,width, height);
 
 
-if (mouseIsPressed){
- angle = atan2(mouseY - height / 2, mouseX - width / 2);
-}else{
+//if (mouseIsPressed){
+// angle = atan2(mouseY - height / 2, mouseX - width / 2);
+//}else{
   angle = 0.25*(sin(frameCount*0.0005));//atan2(mouseY - height / 2, mouseX - width / 2);
-}
+//}
 
 imageMode(CENTER);
 
 // var RedMaskedImage = pgMask(redpg, maskpg);
 // image(RedMaskedImage, 0, 0);
 push();
-rotate(-.17 * angle);
+rotate(-.14 * angle);
 
+let movex = 500 * (cos(frameCount*0.0005));
 
-image(redpg,0,0);
+image(redpg,movex ,0, width*1.3, height*1.3);
 pop();
 
 push();
-rotate(-.35* angle);
+rotate(-.28* angle);
 // var GreenMaskedImage = pgMask(greenpg, maskpg);
-// image(GreenMaskedImage, 0, 0);
-image(greenpg,0, 0);
+ //image(GreenMaskedImage, 0, 0);
+image(greenpg,0 ,0,width*1.3, height*1.3);
 pop();
 
 push();
 rotate(-.7*  angle);
-image(bluepg,0, 0);
+image(bluepg,-movex, 0,width*1.3, height*1.3);
 pop();
 }
 

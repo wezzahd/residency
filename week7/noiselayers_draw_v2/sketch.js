@@ -95,7 +95,7 @@ function setGradient(p, c1, c2) {
   // noprotect
   noFill();
   for (var x = 0; x < p.width; x++) {
-    var inter1 = map(x, 0, 300, 1, 0);
+    var inter1 = map(x, 0, width/4, 1, 0);
     var c = lerpColor(c1, c2, inter1);
     p.stroke(c);
     p.line(x+mouseX, 0, x+mouseX, height);
@@ -115,7 +115,7 @@ function draw() {
   //mldraw();
 //imageaspectratiomain(campg);
 
-  radius = 20;//map(mouseX,0,width,100,1000);
+  radius = 100;//map(mouseX,0,width,100,1000);//20
 //radius = avg(lastD);
 //alph();
 
