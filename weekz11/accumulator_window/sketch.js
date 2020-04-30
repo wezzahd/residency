@@ -207,7 +207,11 @@ function particle_draw() {
     ps.return_home();
   }
 
+   if (isMobile == false) {
+
    image(pgMask(maskpg), 0, 0);
+
+ }
 
 }
 
