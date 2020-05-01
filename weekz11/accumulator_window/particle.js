@@ -191,19 +191,19 @@ if (this.home.y < 0 || this.home.y > height){
   //   this.velocity.mult(-1);
   // }
 
-  if (this.position.y < 0) {
-    this.position.y = height;
+  if (this.position.y < 0-(this.size_v2*this.aspect) ) {
+    this.position.y = height+(this.size_v2*this.aspect);
   }
 
-  if (this.position.y > height) {
-    this.position.y = 0;
+  if (this.position.y > height+(this.size_v2*this.aspect)) {
+    this.position.y = 0-(this.size_v2*this.aspect);
   }
-  if (this.position.x < 0) {
-    this.position.x = width;
+  if (this.position.x < 0-(this.size_v2*this.aspect)) {
+    this.position.x = width+(this.size_v2*this.aspect);
   }
 
-  if (this.position.x > width) {
-    this.position.x = 0;
+  if (this.position.x > width+(this.size_v2*this.aspect)) {
+    this.position.x = 0 -(this.size_v2*this.aspect);
   }
 
 }
