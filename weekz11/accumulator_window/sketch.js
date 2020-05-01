@@ -250,6 +250,20 @@ function windowResized() {
     buttonSetup();
   }
 
+  if (isMobile == false){
+    text_dict.size((width-width/3), height/3);
+    text_dict.position(width/6,height/3);
+    link.position(width/6, (height/3) -40);
+    text2.position(cambuttonX-120,30);
+    text3.position(cambuttonX-70,60);
+  }else{
+    text_dict.position(20, height/5);
+    text_dict.size(width-20, height/2);
+    link.position(20, height/5-20);
+    text2.position(cambuttonX-120,30);
+    text3.position(cambuttonX-70,60);
+}
+
 }
 
 function mouseOverBox(){
