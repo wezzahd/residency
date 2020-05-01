@@ -28,7 +28,7 @@ function buttonText(){
 // text1.hide();
 
 text2 = createP('full screen');
-text2.position(cambuttonX-120,30);
+text2.position(cambuttonX-70,30);
 text2.class("didacticright");
 text2.hide();
 
