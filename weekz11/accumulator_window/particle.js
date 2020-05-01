@@ -9,9 +9,10 @@ class Particle {
     this.lifespan = 0.0;
     this.fill_alpha = 0.0;
     this.rand = random(0, 100);
+    this.randsize = int(random(4, 8));
     this.img = img_;
     this.size_v2 = skip;
-    this.maxsize = width/int(random(4,8)); //(skip / (particlecount/1.5)) * 10.0 ;//random(1, 3) * (height/12) ;//40 //50;
+    this.maxsize = width/this.randsize; //(skip / (particlecount/1.5)) * 10.0 ;//random(1, 3) * (height/12) ;//40 //50;
     this.radius = 25;
     this.highlight = false;
     this.maxspeed = 1;
@@ -120,6 +121,8 @@ if (this.home.y < 0 || this.home.y > height){
  this.home.y = constrain(this.home.y,0, height-(this.rand));
 }
 
+  this.maxsize = width/this.randsize;
+
   // this.c = 0.007;
   // this.speed = this.velocity.mag();
   // this.dragMagnitude = this.c * this.speed * this.speed;
@@ -142,6 +145,11 @@ if (this.home.y < 0 || this.home.y > height){
 
   if (this.size_v2 > this.maxsize) {
     this.size_v2 -= this.resize;
+
+  }
+
+  if (this.size_v2 < this.maxsize) {
+    this.size_v2 += this.resize;
 
   }
 
