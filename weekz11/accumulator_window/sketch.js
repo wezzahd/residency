@@ -188,7 +188,7 @@ function draw() {
 function particle_draw() {
 
   blendMode(BLEND);
-  background(23, 73, 219);
+  background(79, 105, 255); //23, 73, 219
 
   //noCursor();
 
@@ -220,7 +220,7 @@ function particle_draw() {
 
    if (isMobile == false) {
 
-image(pgMask(maskpg), 0, 0);
+//image(pgMask(maskpg), 0, 0);
 
  }
 

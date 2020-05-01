@@ -32,15 +32,15 @@ class Particle {
   colour(rand) {
 
     if (this.rand > 0 && this.rand < 20) {
-      this.c = color(45, 0, 255);
+      this.c = color(152, 79, 255);//45, 0, 255
   } else if (this.rand > 20 && this.rand < 40) {
-      this.c = color(220, 0, 255);
+      this.c = color(253, 115, 255); //220, 0, 255)
     } else if (this.rand > 40 && this.rand < 60) {
-        this.c = color(191, 240, 255);
+        this.c = color(77, 110, 255); //191, 240, 255
       } else if (this.rand > 60 && this.rand < 80) {
-          this.c = color(0, 241, 255);
+          this.c = color(80, 240, 255); //0, 241, 255
   }else{
-    this.c = color(100, 0, 255);
+    this.c = color(191, 240, 255); //100, 0, 255
   }
 
 
