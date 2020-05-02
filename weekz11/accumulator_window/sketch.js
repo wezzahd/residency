@@ -258,14 +258,16 @@ function windowResized() {
 }
 
 function infoInstructions(){
+
   instruction_toggle = !instruction_toggle;
   if (instruction_toggle) {
-    instructionsDidactic();
+    myInfo.style.display = "block";
+    myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
   } else {
-    remove_elements();
+    myInfo.style.display = "none";
+    myInfo.style.background = "none";
     ps.get_moving();
   }
-
 
 }
 
@@ -286,7 +288,8 @@ function myFunction() {
   }
 
 if (instruction_toggle) {
-  remove_elements();
+  myInfo.style.display = "none";
+  myInfo.style.background = "none";
   ps.get_moving();
   instruction_toggle = !instruction_toggle;
 }

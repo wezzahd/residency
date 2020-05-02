@@ -47,7 +47,7 @@ canvas {
   color: black;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 20px;
+  font-size: 3vw;
   margin-left: 10%;
 }
 
@@ -71,35 +71,19 @@ canvas {
 
 }
 
+.content {
+ position: absolute;
+ overflow: auto;
+ font-size: 2vw;
+ center: 0
 
-.didactic {
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #000000;
-  font-size: 16pt;
-  overflow: auto;
+ width: 80%;
+ padding: 20px;
 }
 
-.didacticcenter {
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #000000;
-  font-size: 16pt;
-  text-align: center;
-  display: block
-}
-
-.didacticleft {
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #000000;
-  font-size: 16pt;
-  text-align: left;
-  display: block
-}
-
-.didacticright {
-  font-family: 'Roboto Condensed', sans-serif;
-  color: #000000;
-  font-size: 10pt;
-  text-align: right;
-  vertical-align: text-top;
-  overflow: hidden
+.content #myInfo {
+ display: none;
+ background:none;
+ padding: 20px;
+ color: black;
 }
