@@ -14,6 +14,15 @@
   <script src="https://www.gstatic.com/firebasejs/7.12.0/firebase-analytics.js"></script>
   <script src="ios-inner-height.min.js"></script>
   <script src="scroll-lock.min.js"></script>
+
+  <script language="javascript" type="text/javascript" src="particle.js"></script>
+  <script language="javascript" type="text/javascript" src="particle_system.js"></script>
+  <script src="sketch.js"></script>
+  <script src="firebase.js"></script>
+  <script src="uploadpixel.js"></script>
+  <script src="loadingscreen.js"></script>
+
+
   <script>
     scrollLock.disablePageScroll();
     //...
@@ -22,7 +31,8 @@
 
   <link rel="stylesheet" type="text/css" href="style.css">
 
-<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
   <link rel="apple-touch-icon" sizes="60x60" href="/favicon/apple-icon-60x60.png">
@@ -66,7 +76,6 @@
 
 
 
-
 </head>
 
 <style>
@@ -78,17 +87,18 @@
 
 <body>
 
-  <script language="javascript" type="text/javascript" src="particle.js"></script>
-  <script language="javascript" type="text/javascript" src="particle_system.js"></script>
-  <script language="javascript" type="text/javascript" src="repeller.js"></script>
-  <script language="javascript" type="text/javascript" src="quadtree.js"></script>
-  <script src="sketch.js"></script>
-  <script src="firebase.js"></script>
-  <script src="uploadpixel.js"></script>
-  <script src="loadingscreen.js"></script>
-
-
-
+  <!-- Top Navigation Menu -->
+  <div class="topnav">
+    <div id="myLinks">
+      <a href="#">Mosaic</a>
+      <a href="javascript:void(0);" onclick="infoInstructions()">Info</a>
+      <a href="mailto:wesley@wesleydowling.com">Contact</a>
+      <a href="javascript:void(0);" onclick="fullScreenMenu()">Full Screen</a>
+    </div>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
 
 </body>
 

@@ -56,6 +56,8 @@ let maskpg;
 
 let mask_backgroundcol = 0;
 
+let mouseIsMoving = false;
+
 document.addEventListener('touchmove', function(event) {
   if (event.scale !== 1) {
     event.preventDefault();
@@ -176,13 +178,12 @@ function masker() {
 function draw() {
 
   particle_draw();
-  mouseOverBox();
 
-  if (instruction_toggle) {
-    loadingScreen(instructionpg);
-  }
-
-  instructionsButtons();
+  if(mouseIsMoving == true){
+		cursor();
+	}else{
+		noCursor();
+	}
 }
 
 function particle_draw() {
@@ -230,88 +231,70 @@ function touchMoved(event) {
   return false;
 }
 
+function mouseMoved(){
+  mouseIsMoving = true;
+
+	setTimeout(function(){ // this is to delay the execution of the code within, this is pure javaScript
+		mouseIsMoving = false;
+	},3000) //it takes a time in MS
+
+}
+
 function windowResized() {
 
     if (!isMobile) {
-
     resizeCanvas(windowWidth, windowHeight);
-    centerCanvas();
-    instructionpg.resizeCanvas(windowWidth, windowHeight);
+  //  centerCanvas();
     maskpg.resizeCanvas(windowWidth, windowHeight);
     masker();
-    buttonSetup();
   }else{
     inner = iosInnerHeight();
     resizeCanvas(windowWidth, inner);
-    centerCanvas();
-    instructionpg.resizeCanvas(windowWidth, inner);
+  //  centerCanvas();
     maskpg.resizeCanvas(windowWidth, inner);
     masker();
-    buttonSetup();
   }
 
-  if (isMobile == false){
-    text_dict.size((width-width/3), height/3);
-    text_dict.position(width/6,height/3);
-    link.position(width/6, (height/3) -40);
-    text2.position(cambuttonX-50,30);
-    text3.position(cambuttonX-50,60);
-  }else{
-    text_dict.position(20, height/5);
-    text_dict.size(width-20, height/2);
-    link.position(20, height/5-20);
-    text2.position(cambuttonX-70,30);
-    text3.position(cambuttonX-70,60);
 }
 
+function infoInstructions(){
+  instruction_toggle = !instruction_toggle;
+  if (instruction_toggle) {
+    instructionsDidactic();
+  } else {
+    remove_elements();
+    ps.get_moving();
+  }
+
+
 }
 
-function mouseOverBox(){
+function fullScreenMenu() {
+    let fs = fullscreen();
+    fullscreen(!fs);
+    myFunction();
+   document.body.scrollTop = 0; // <-- pull the page back up to the top
+    document.body.style.overflow = 'hidden';
+  }
 
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
 
-  if (mouseX > width - 75 && mouseX < width && mouseY > 50 && mouseY < 80 && isMobile == false) {
+if (instruction_toggle) {
+  remove_elements();
+  ps.get_moving();
+  instruction_toggle = !instruction_toggle;
+}
 
-    text2.show();
-    buttonCol2 = 255;
-    }else{
-      text2.hide();
-      buttonCol2 = 0;
-    }
-
-
-  if (mouseX > width - 75 && mouseX < width && mouseY > 80 && mouseY < 110) {
-    text3.show();
-    buttonCol3 = 255;
-    }else{
-      text3.hide();
-      buttonCol3 = 0;
-    }
 }
 
 function mousePressed() {
 
 shaderMousePressed();
-
-
-  if (mouseX > width - 75 && mouseX < width && mouseY > 50 && mouseY < 80 && isMobile == false) {
-    let fs = fullscreen();
-    fullscreen(!fs);
-    //Remove vert scroll bar in fullScreen
-     document.body.scrollTop = 0; // <-- pull the page back up to the top
-    document.body.style.overflow = 'hidden';
-
-  }
-
-  if (mouseX > width - 75 && mouseX < width && mouseY > 80 && mouseY < 110) {
-    instruction_toggle = !instruction_toggle;
-    if (instruction_toggle) {
-      instructionsDidactic();
-    } else {
-      remove_elements();
-      ps.get_moving();
-
-    }
-
-  }
 
 }

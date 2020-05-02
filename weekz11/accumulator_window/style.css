@@ -11,11 +11,66 @@ body {
   justify-content: center;
   /* This centers our sketch vertically. */
   align-items: center;
+
+   font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
 canvas {
   display: block;
 }
+
+.mobile-container {
+  max-width: 480px;
+  margin: auto;
+  background-color: #555;
+  height: 500px;
+  color: white;
+  border-radius: 10px;
+}
+
+
+.topnav {
+  overflow: hidden;
+ position:absolute;
+  right:10px;
+  top:10px;
+  width: 100%;
+
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav a {
+  float: left;
+  color: black;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  margin-left: 10%;
+}
+
+.topnav a.icon {
+  position:fixed;
+  right:10px;
+  top:10px;
+
+
+}
+
+.topnav a:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.8;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+
+}
+
 
 .didactic {
   font-family: 'Roboto Condensed', sans-serif;
