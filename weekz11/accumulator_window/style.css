@@ -19,14 +19,6 @@ canvas {
   display: block;
 }
 
-.mobile-container {
-  max-width: 480px;
-  margin: auto;
-  background-color: #555;
-  height: 500px;
-  color: white;
-  border-radius: 10px;
-}
 
 
 .topnav {
@@ -45,16 +37,15 @@ canvas {
 .topnav a {
   float: left;
   color: black;
+  margin-left: 1%;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 3vw;
-  margin-left: 10%;
+  font-size: 4vw;
+
 }
 
 .topnav a.icon {
-  position:fixed;
-  right:10px;
-  top:10px;
+float:right;
 
 
 }
