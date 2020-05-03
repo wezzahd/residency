@@ -104,6 +104,8 @@ FScreen.style.display = "block";
 
   } else {
 
+    var $scrollableElement = document.querySelector('.content');
+    scrollLock.disablePageScroll($scrollableElement);
 
 
     skip = 200;
