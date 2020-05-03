@@ -64,17 +64,18 @@ float:right;
 
 .content {
  position: absolute;
- overflow: auto;
- font-size: 2vw;
- center: 0
-
+ overflow: scroll;
+ font-size: 3.5vw;
+ center: 0;
  width: 80%;
+ height:70%;
  padding: 20px;
 }
 
 .content #myInfo {
  display: none;
  background:none;
+ overflow: scroll;
  padding: 20px;
  color: black;
 }
