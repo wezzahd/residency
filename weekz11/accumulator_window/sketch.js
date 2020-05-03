@@ -100,7 +100,12 @@ function setup() {
     cnv = createCanvas(windowWidth, windowHeight);
     cnv.id('mycanvas');
     cnv.style('display', 'block');
+FScreen.style.display = "block";
+
   } else {
+
+
+
     skip = 200;
       if (windowWidth < windowHeight){
         inner = iosInnerHeight();
@@ -115,8 +120,6 @@ function setup() {
      console.log("landscape")
 }
   }
-
-
 
   pixelDensity(1);
 
