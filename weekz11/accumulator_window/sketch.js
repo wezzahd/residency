@@ -104,6 +104,9 @@ FScreen.style.display = "block";
 
   } else {
 
+    var $scrollableElement = document.querySelector('.didactic');
+    scrollLock.disablePageScroll($scrollableElement);
+
     skip = 200;
       if (windowWidth < windowHeight){
         inner = iosInnerHeight();
