@@ -48,7 +48,7 @@ function shaderDraw() {
 
 function shaderMousePressed() {
 
-if  (mouseY > 100 && mouseY < height ) {
+if  (mouseY > 100 && mouseY < height && !instruction_toggle ) {
 
   colour = 0;//cam.get(width - mouseX, mouseY);
   var data = {
