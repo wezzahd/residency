@@ -58,11 +58,11 @@ let mask_backgroundcol = 0;
 
 let mouseIsMoving = false;
 
-document.addEventListener('touchmove', function(event) {
-  if (event.scale !== 1) {
-    event.preventDefault();
-  }
-}, false);
+// document.addEventListener('touchmove', function(event) {
+//   if (event.scale !== 1) {
+//     event.preventDefault();
+//   }
+// }, false);
 
 
 
@@ -230,9 +230,9 @@ function particle_draw() {
 
 }
 
-function touchMoved(event) {
-  return false;
-}
+// function touchMoved(event) {
+//   return false;
+// }
 
 function mouseMoved(){
   mouseIsMoving = true;
