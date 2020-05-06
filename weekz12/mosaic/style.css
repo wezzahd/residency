@@ -11,22 +11,19 @@ body {
   justify-content: center;
   /* This centers our sketch vertically. */
   align-items: center;
-
-   font-family: "Avenir Next", "Avenir", sans-serif;
+  font-family: "Avenir Next", "Avenir", sans-serif;
 }
 
 canvas {
   display: block;
 }
 
-
 .topnav {
   overflow: hidden;
- position:absolute;
-  right:10px;
-  top:10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
   width: 100%;
-
 }
 
 .topnav #myLinks {
@@ -47,15 +44,14 @@ canvas {
 }
 
 /* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) and (orientation: portrait){
-  .topnav a {font-size: 6vw;}
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+  .topnav a {
+    font-size: 6vw;
+  }
 }
 
-
 .topnav a.icon {
-float:right;
-
-
+  float: right;
 }
 
 .topnav a:hover {
@@ -67,24 +63,23 @@ float:right;
 .active {
   background-color: #4CAF50;
   color: white;
-
 }
 
 .content {
- position: absolute;
- overflow-y: scroll; /* has to be scroll, not auto */
- -webkit-overflow-scrolling: touch;
- font-size: 3.5vw;
- center: 0;
- width: 80%;
- height:70%;
- padding: 20px;
+  position: absolute;
+  overflow-y: scroll;
+  /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+  font-size: 3.5vw;
+  center: 0;
+  width: 80%;
+  height: 70%;
+  padding: 20px;
 }
 
 .content .fa {
   float: right;
   font-size: 3.5vw;
-  
   text-align: center;
   text-decoration: none;
 }
@@ -95,25 +90,98 @@ float:right;
 }
 
 /* Set a specific color for each brand */
-
 /* Instagram */
 .content .fa-instagram {
   background: transparent;
   color: black;
 }
 
-
-
-
-@media only screen and (max-width: 600px) and (orientation: portrait){
-  .content {font-size: 5vw;}
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+  .content {
+    font-size: 5vw;
+  }
 }
 
 .content #myInfo {
- display: none;
- background:none;
- overflow-y: scroll; /* has to be scroll, not auto */
- -webkit-overflow-scrolling: touch;
- padding: 20px;
- color: black;
+  display: none;
+  background: none;
+  overflow-y: scroll;
+  /* has to be scroll, not auto */
+  -webkit-overflow-scrolling: touch;
+  padding: 20px;
+  color: black;
 }
+
+.animated {
+  position: absolute;
+  font-size: 3.5vw;
+  center: 0;
+  padding: 20px;
+  animation-duration: 5s;
+  -webkit-animation-duration: 5s;
+  -moz-animation-duration: 5s;
+  -o-animation-duration: 5s;
+  -ms-animation-duration: 5s;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+}
+
+.fadeOut {
+  -webkit-animation-name: fadeOut;
+  -moz-animation-name: fadeOut;
+  -o-animation-name: fadeOut;
+  -ms-animation-name: fadeOut;
+  animation-name: fadeOut;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-o-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@-ms-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
