@@ -96,12 +96,6 @@ canvas {
   color: black;
 }
 
-@media only screen and (max-width: 600px) and (orientation: portrait) {
-  .content {
-    font-size: 5vw;
-  }
-}
-
 .content #myInfo {
   display: none;
   background: none;
@@ -127,6 +121,12 @@ canvas {
   -moz-animation-fill-mode: both;
   -o-animation-fill-mode: both;
   -ms-animation-fill-mode: both;
+}
+
+@media only screen and (max-width: 600px) and (orientation: portrait) {
+  .content {
+    font-size: 5vw;
+  }
 }
 
 .fadeOut {
