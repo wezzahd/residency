@@ -135,6 +135,7 @@ canvas {
   }
 }
 
+
 .fadeOut {
   -webkit-animation-name: fadeOut;
   -moz-animation-name: fadeOut;
