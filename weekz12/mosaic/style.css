@@ -1,0 +1,119 @@
+html, body {
+  height: 100.1%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  overflow: hidden;
+  /* Hide scrollbars */
+  /* This centers our sketch horizontally. */
+  justify-content: center;
+  /* This centers our sketch vertically. */
+  align-items: center;
+
+   font-family: "Avenir Next", "Avenir", sans-serif;
+}
+
+canvas {
+  display: block;
+}
+
+
+.topnav {
+  overflow: hidden;
+ position:absolute;
+  right:10px;
+  top:10px;
+  width: 100%;
+
+}
+
+.topnav #myLinks {
+  display: none;
+}
+
+.topnav #FScreen {
+  display: none;
+}
+
+.topnav a {
+  float: left;
+  color: black;
+  margin-left: 1%;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 4vw;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) and (orientation: portrait){
+  .topnav a {font-size: 6vw;}
+}
+
+
+.topnav a.icon {
+float:right;
+
+
+}
+
+.topnav a:hover {
+  background-color: white;
+  color: black;
+  opacity: 0.8;
+}
+
+.active {
+  background-color: #4CAF50;
+  color: white;
+
+}
+
+.content {
+ position: absolute;
+ overflow-y: scroll; /* has to be scroll, not auto */
+ -webkit-overflow-scrolling: touch;
+ font-size: 3.5vw;
+ center: 0;
+ width: 80%;
+ height:70%;
+ padding: 20px;
+}
+
+.content .fa {
+  float: right;
+  font-size: 3.5vw;
+  
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Add a hover effect if you want */
+.content .fa:hover {
+  opacity: 0.8;
+}
+
+/* Set a specific color for each brand */
+
+/* Instagram */
+.content .fa-instagram {
+  background: transparent;
+  color: black;
+}
+
+
+
+
+@media only screen and (max-width: 600px) and (orientation: portrait){
+  .content {font-size: 5vw;}
+}
+
+.content #myInfo {
+ display: none;
+ background:none;
+ overflow-y: scroll; /* has to be scroll, not auto */
+ -webkit-overflow-scrolling: touch;
+ padding: 20px;
+ color: black;
+}
