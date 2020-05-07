@@ -58,16 +58,6 @@ let mask_backgroundcol = 0;
 
 let mouseIsMoving = false;
 
-// document.addEventListener('touchmove', function(event) {
-//   if (event.scale !== 1) {
-//     event.preventDefault();
-//   }
-// }, false);
-
-
-
-
-
 function centerCanvas() {
   var cnv_x = (windowWidth - width) / 2;
   var cnv_y = (windowHeight - height) / 2;
@@ -88,8 +78,6 @@ function preload() {
   if (/android/i.test(navigator.userAgent)) {
     isAndroid = true;
   }
-
-//  shaderPreload();
 }
 
 function setup() {
@@ -103,8 +91,6 @@ FScreen.style.display = "block";
 
   } else {
 
-    // var $scrollableElement = document.querySelector('.content');
-    // scrollLock.disablePageScroll($scrollableElement);
 
     skip = 200;
       if (windowWidth < windowHeight){
@@ -135,7 +121,6 @@ FScreen.style.display = "block";
 
   captureEvent();
   firebasesetup();
-//  shaderSetup();
   buttonText();
 }
 
@@ -167,7 +152,6 @@ function pgMask(_mask) {
 
 function captureEvent() {
   ps = new ParticleSystem(createVector(width / 2, height / 2), img);
-//  repeller = new Repeller(width / 2, height / 2);
 }
 
 function masker() {
@@ -194,22 +178,6 @@ function particle_draw() {
   blendMode(BLEND);
   background(79, 105, 255); //23, 73, 219
 
-  //noCursor();
-
-  // The touches array holds an object for each and every touch
-  // The array length is dynamic and tied to the number of fingers
-  // currently touching
-
-  for (var i = 0; i < touches.length; i++) {
-
-    if (isMobile == true && touches.length == 1) {
-      mouseIsPressed = false;
-    }
-    if (isMobile == true && touches.length >= 2) {
-      mouseIsPressed = true;
-    }
-
-  }
 
   ps.run();
 
@@ -230,9 +198,6 @@ function particle_draw() {
 
 }
 
-// function touchMoved(event) {
-//   return false;
-// }
 
 function mouseMoved(){
   mouseIsMoving = true;
@@ -247,13 +212,11 @@ function windowResized() {
 
     if (!isMobile) {
     resizeCanvas(windowWidth, windowHeight);
-  //  centerCanvas();
     maskpg.resizeCanvas(windowWidth, windowHeight);
     masker();
   }else{
     inner = iosInnerHeight();
     resizeCanvas(windowWidth, inner);
-  //  centerCanvas();
     maskpg.resizeCanvas(windowWidth, inner);
     masker();
   }

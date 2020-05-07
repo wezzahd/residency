@@ -9,7 +9,7 @@ class ParticleSystem {
   addParticle(x, y, rand, img, devWidth, devHeight) {
     if (x !== undefined && y !== undefined) {
       this.particles.push(new Particle(x, y, rand, img, devWidth, devHeight));
-     particlecount = this.particles.length;
+      particlecount = this.particles.length;
     } else {
       this.particles.push(new Particle(this.origin.x, this.origin.y));
     }
@@ -50,12 +50,12 @@ class ParticleSystem {
 
         if (particle !== other && particle.intersects(other)) {
           particle.intersectForce();
-        //  push();
-        //   noFill();
-        //   strokeWeight(0.5);
-        //   stroke(particle.stroke_col,particle.lifespan);
-        //
-        // line(particle.position.x,particle.position.y, other.position.x,other.position.y);
+          //  push();
+          //   noFill();
+          //   strokeWeight(0.5);
+          //   stroke(particle.stroke_col,particle.lifespan);
+          //
+          // line(particle.position.x,particle.position.y, other.position.x,other.position.y);
 
 
         }
@@ -66,39 +66,39 @@ class ParticleSystem {
 
   behaviors() {
     for (let particle of this.particles) {
-particle.behaviors(mouseX, mouseY);
+      particle.behaviors(mouseX, mouseY);
 
+    }
   }
-}
 
 
-return_home() {
-  for (let particle of this.particles) {
-    particle.velocity.x = 0.0;
-    particle.velocity.y = 0.0;
-    particle.acceleration.x = -0.1 * (particle.position.x - particle.home.x);
-    particle.acceleration.y = -0.1 * (particle.position.y - particle.home.y);
+  return_home() {
+    for (let particle of this.particles) {
+      particle.velocity.x = 0.0;
+      particle.velocity.y = 0.0;
+      particle.acceleration.x = -0.1 * (particle.position.x - particle.home.x);
+      particle.acceleration.y = -0.1 * (particle.position.y - particle.home.y);
+    }
   }
-}
 
-get_moving() {
-  for (let particle of this.particles) {
-    particle.velocity.x = random(-2,2);
-    particle.velocity.y = random(-2,2);
-    particle.acceleration.x = 0.1 * (particle.position.x - particle.home.x);
-    particle.acceleration.y = 0.1 * (particle.position.y - particle.home.y);
+  get_moving() {
+    for (let particle of this.particles) {
+      particle.velocity.x = random(-2, 2);
+      particle.velocity.y = random(-2, 2);
+      particle.acceleration.x = 0.1 * (particle.position.x - particle.home.x);
+      particle.acceleration.y = 0.1 * (particle.position.y - particle.home.y);
+    }
   }
-}
 
 
 
- applyRepeller(r) {
+  applyRepeller(r) {
     for (let particle of this.particles) {
       if (particle.local_force == true) {
-      let force = r.repel(particle);
-      particle.applyForce(force);
+        let force = r.repel(particle);
+        particle.applyForce(force);
       }
-      }
+    }
 
   }
 

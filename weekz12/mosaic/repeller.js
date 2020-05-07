@@ -2,8 +2,8 @@ class Repeller {
   constructor(x, y) {
     this.power = 0;
     this.position = createVector(x, y);
-    this.min = 0;//00;
-    this.max =  20;//700;
+    this.min = 0; //00;
+    this.max = 20; //700;
 
   }
 
@@ -17,12 +17,12 @@ class Repeller {
   repel(p) {
     let dir = p5.Vector.sub(this.position, p.position); // Calculate direction of force
     var sine = 1 * sin(TWO_PI * frameCount / 600);
-        this.power = map(sine,-1,1, this.min, this.max);
+    this.power = map(sine, -1, 1, this.min, this.max);
 
     if (mouseIsPressed) {
-        sine = 0;
-        this.power = 0;
-      }
+      sine = 0;
+      this.power = 0;
+    }
 
 
 

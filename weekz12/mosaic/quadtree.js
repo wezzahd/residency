@@ -156,23 +156,23 @@ class QuadTree {
 
     return found;
   }
- 
-//   show() {
-//     stroke(255);
-//     noFill();
-//     strokeWeight(1);
-//     rectMode(CENTER);
-//     rect(this.boundary.x, this.boundary.y, this.boundary.w * 2, this.boundary.h * 2);
-//     for (let p of this.points) {
-//       strokeWeight(2);
-//       point(p.x, p.y);
-//     }
 
-//     if (this.divided) {
-//       this.northeast.show();
-//       this.northwest.show();
-//       this.southeast.show();
-//       this.southwest.show();
-//     }
-//   }
+  //   show() {
+  //     stroke(255);
+  //     noFill();
+  //     strokeWeight(1);
+  //     rectMode(CENTER);
+  //     rect(this.boundary.x, this.boundary.y, this.boundary.w * 2, this.boundary.h * 2);
+  //     for (let p of this.points) {
+  //       strokeWeight(2);
+  //       point(p.x, p.y);
+  //     }
+
+  //     if (this.divided) {
+  //       this.northeast.show();
+  //       this.northwest.show();
+  //       this.southeast.show();
+  //       this.southwest.show();
+  //     }
+  //   }
 }
