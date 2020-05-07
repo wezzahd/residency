@@ -235,11 +235,12 @@ function infoInstructions(){
   if (instruction_toggle) {
     myInfo.style.display = "block";
     myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
+    myInfo.style.overflow = "scroll";
   } else {
-  //  icons.classList.toggle("fa-window-close");
     myInfo.style.display = "none";
     myInfo.style.background = "none";
     myLinks.style.display = "none";
+    myInfo.style.overflow = "hidden";
     ps.get_moving();
   }
 
