@@ -99,6 +99,7 @@ canvas {
 /* Set a specific color for each brand */
 /* Instagram */
 .content .fa-instagram {
+  font-size: 5vw;
   background: transparent;
   color: black;
 }
@@ -141,6 +142,9 @@ canvas {
   .animated {
     font-size: 5vw;
   }
+
+  .content .fa-instagram {
+    font-size: 7vw;
 
 }
 
