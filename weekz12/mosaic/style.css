@@ -60,6 +60,12 @@ canvas {
   opacity: 0.8;
 }
 
+@media (hover: none) {
+.topnav a:hover {
+      background-color: transparent;
+   }
+}
+
 .active {
   background-color: #4CAF50;
   color: white;
@@ -96,11 +102,7 @@ canvas {
   color: black;
 }
 
-@media only screen and (max-width: 600px) and (orientation: portrait) {
-  .content {
-    font-size: 5vw;
-  }
-}
+
 
 .content #myInfo {
   display: none;
@@ -134,7 +136,13 @@ canvas {
   .content {
     font-size: 5vw;
   }
+
+  .animated {
+    font-size: 5vw;
+  }
+
 }
+
 
 .fadeOut {
   -webkit-animation-name: fadeOut;
