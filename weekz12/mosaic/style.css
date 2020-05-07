@@ -63,6 +63,7 @@ canvas {
 @media (hover: none) {
 .topnav a:hover {
       background-color: transparent;
+      opacity: 0.0;
    }
 }
 
