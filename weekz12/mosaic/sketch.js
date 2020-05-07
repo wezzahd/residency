@@ -263,10 +263,17 @@ function windowResized() {
 function infoInstructions(){
 
   instruction_toggle = !instruction_toggle;
+  var x = document.getElementById("myLinks");
+  icons.classList.toggle("fa-window-close");
+  myLinks.style.display = "block";
+  myInfo.style.display = "block";
+  myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
+
   if (instruction_toggle) {
     myInfo.style.display = "block";
     myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
   } else {
+  //  icons.classList.toggle("fa-window-close");
     myInfo.style.display = "none";
     myInfo.style.background = "none";
     myLinks.style.display = "none";
@@ -282,23 +289,6 @@ function fullScreenMenu() {
    document.body.scrollTop = 0; // <-- pull the page back up to the top
     document.body.style.overflow = 'hidden';
   }
-
-function myFunction() {
-  var x = document.getElementById("myLinks");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-  } else {
-    x.style.display = "block";
-  }
-
-if (instruction_toggle) {
-  myInfo.style.display = "none";
-  myInfo.style.background = "none";
-  ps.get_moving();
-  instruction_toggle = !instruction_toggle;
-}
-
-}
 
 function mousePressed() {
 

@@ -115,6 +115,7 @@ canvas {
 .animated {
   position: absolute;
   font-size: 3.5vw;
+  text-align: center;
   center: 0;
   padding: 20px;
   animation-duration: 5s;
