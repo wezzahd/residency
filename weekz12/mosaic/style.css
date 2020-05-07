@@ -60,7 +60,7 @@ canvas {
 
 .content {
   position: absolute;
-  overflow-y: scroll;
+  overflow: scroll;
   /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
   font-size: 3.5vw;
@@ -93,7 +93,7 @@ canvas {
 .content #myInfo {
   display: none;
   background: none;
-  overflow-y: scroll;
+  overflow: hidden;
   /* has to be scroll, not auto */
   -webkit-overflow-scrolling: touch;
   padding: 20px;
