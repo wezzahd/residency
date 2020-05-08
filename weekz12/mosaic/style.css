@@ -58,7 +58,7 @@ canvas {
   color: white;
 }
 
-.content {
+.content  {
   position: absolute;
   overflow-y: scroll;
   /* has to be scroll, not auto */

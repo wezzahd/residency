@@ -230,18 +230,18 @@ function infoInstructions(){
   icons.classList.toggle("fa-window-close");
   myLinks.style.display = "block";
   myInfo.style.display = "block";
-  myInfo.style.overflowY = "scroll";
+//  myInfo.style.overflowY = "scroll";
   myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
 
   if (instruction_toggle) {
     myInfo.style.display = "block";
     myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
-    myInfo.style.overflowY = "scroll";
+  //  myInfo.style.overflowY = "scroll";
   } else {
     myInfo.style.display = "none";
     myInfo.style.background = "none";
     myLinks.style.display = "none";
-    myInfo.style.overflowY = "hidden";
+  //  myInfo.style.overflowY = "hidden";
     ps.get_moving();
   }
 
