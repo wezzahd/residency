@@ -60,7 +60,7 @@ canvas {
 
 .content {
   position: absolute;
-  overflow-y: scroll;
+  overflow-y: hidden;
   /* has to be scroll, not auto */
   font-size: 3.5vw;
   center: 0;
