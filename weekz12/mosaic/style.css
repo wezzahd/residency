@@ -118,14 +118,17 @@ canvas {
 }
 
 @media (hover: none) {
-.topnav a:hover {
-      background-color: transparent;
-      opacity: 1.0;
-   }
+  .topnav a:hover {
+    background-color: transparent;
+    opacity: 1.0;
+  }
+
+  .content {
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 @media only screen and (max-width: 600px) and (orientation: portrait) {
-
   .topnav a {
     font-size: 6vw;
   }
@@ -140,7 +143,7 @@ canvas {
 
   .content .fa-instagram {
     font-size: 7vw;
-}
+  }
 }
 
 .fadeOut {
