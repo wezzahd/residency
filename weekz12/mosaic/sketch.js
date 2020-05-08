@@ -235,12 +235,12 @@ function infoInstructions(){
   if (instruction_toggle) {
     myInfo.style.display = "block";
     myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
-    myInfo.style.overflow = "scroll";
+    myInfo.style.overflowY = "scroll";
   } else {
     myInfo.style.display = "none";
     myInfo.style.background = "none";
     myLinks.style.display = "none";
-    myInfo.style.overflow = "hidden";
+    myInfo.style.overflowY = "hidden";
     ps.get_moving();
   }
 
@@ -249,7 +249,6 @@ function infoInstructions(){
 function fullScreenMenu() {
     let fs = fullscreen();
     fullscreen(!fs);
-    myFunction();
    document.body.scrollTop = 0; // <-- pull the page back up to the top
     document.body.style.overflow = 'hidden';
   }
