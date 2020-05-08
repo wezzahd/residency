@@ -60,9 +60,8 @@ canvas {
 
 .content {
   position: absolute;
-  overflow-y: hidden;
+  overflow-y: scroll;
   /* has to be scroll, not auto */
-  -webkit-overflow-scrolling: touch;
   font-size: 3.5vw;
   center: 0;
   width: 80%;
