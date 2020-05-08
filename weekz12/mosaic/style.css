@@ -60,13 +60,12 @@ canvas {
 
 .content  {
   position: absolute;
-  overflow-y: auto;
-  /* has to be scroll, not auto */
+  overflow-y: auto; /* has to be scroll, not auto */
   font-size: 3.5vw;
   center: 0;
   width: 80%;
-  height: 70%;
-  padding: 0px;
+  height:70%;
+  padding: 20px;
 }
 
 .content .fa {
@@ -91,9 +90,8 @@ canvas {
 
 .content #myInfo {
   display: none;
-  background: none;
-  overflow-y: auto; s
-  /* has to be scroll, not auto */
+  background:none;
+  overflow-y: auto; /* has to be scroll, not auto */
   padding: 20px;
   color: black;
 }
