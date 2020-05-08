@@ -230,6 +230,7 @@ function infoInstructions(){
   icons.classList.toggle("fa-window-close");
   myLinks.style.display = "block";
   myInfo.style.display = "block";
+  myInfo.style.overflowY = "scroll";
   myInfo.style.background =  "rgba(255, 255, 255, 0.8)";
 
   if (instruction_toggle) {
