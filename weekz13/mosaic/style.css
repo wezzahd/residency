@@ -45,6 +45,7 @@ canvas {
 
 .topnav a.icon {
   float: right;
+  visibility: visible;
 }
 
 .topnav a:hover {

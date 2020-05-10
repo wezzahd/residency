@@ -39,7 +39,7 @@ class Particle {
     } else if (this.rand > 40 && this.rand < 60) {
       this.c = color(77, 110, 255); //191, 240, 255
     } else if (this.rand > 60 && this.rand < 80) {
-      this.c = color(80, 240, 255); //0, 241, 255
+      this.c = color(80, 240, 255); //0, 241, 255//may need to use 0,240,255 - test on projector
     } else {
       this.c = color(191, 240, 255); //100, 0, 255
     }

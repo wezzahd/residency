@@ -60,6 +60,7 @@ let mouseIsMoving = false;
 
 let loadmask = false;
 let loadvptmask = false;
+let hideicon = false;
 
 let maskimg;
 let maskimg2;
@@ -184,7 +185,7 @@ function draw() {
 function particle_draw() {
 
   blendMode(BLEND);
-  background(79, 105, 255); //23, 73, 219
+  background(79, 105, 255); //23, 73, 219//consider black bg
 
 
   ps.run();
@@ -211,6 +212,18 @@ function particle_draw() {
 }
 
 function keyPressed(){
+
+  if (key == 'H' || key == 'h' ){
+
+    hideicon = !hideicon;
+
+    if (hideicon) {
+    icons.style.display = "none";
+  }else{
+    icons.style.display = "block";
+  }
+
+  }
 
 if (key == 'M' || key == 'm' ){
     loadmask = !loadmask;
