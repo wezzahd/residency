@@ -114,6 +114,7 @@ function setup() {
   firebasesetup();
   shaderSetup();
   buttonText();
+  //background(0);
 }
 
 function ready() {
@@ -158,11 +159,11 @@ function particle_draw() {
 
 
   blendMode(BLEND);
-  background(0);
+  background(0,10);
 
 
 
-blendMode(ADD);
+blendMode(SCREEN);
 
 // if (pixelShaderToggle){
 //   push();
@@ -224,7 +225,7 @@ blendMode(ADD);
 
   stroke(255);
   noFill();
-  rect(mouseX, mouseY, eraser_size * 2, eraser_size * 2);
+  //rect(mouseX, mouseY, eraser_size * 2, eraser_size * 2);
 
   // if (counter < 25) {
   //

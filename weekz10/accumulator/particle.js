@@ -25,12 +25,13 @@ class Particle {
     this.local_force = true;
     this.origWidth = devWidth;
     this.origHeight = devHeight;
+this.history = [];
 
   }
 
   colour(rand) {
 
-    this.c = color(this.img[0],this.img[1],this.img[2]);//this.img.get(this.home.x / skip, this.home.y / skip);
+  this.c = color(50,50,50);//this.img.get(this.home.x / skip, this.home.y / skip);
 
     this.fill_col = this.c;//this.random_color_gen[rand];
     this.stroke_col = this.c;//this.random_color_gen[(rand + 3)];
@@ -38,7 +39,7 @@ class Particle {
 
   run() {
     this.update();
-    this.display();
+  //this.display();
   }
 
   behaviors(px, py) {
@@ -73,12 +74,12 @@ class Particle {
 
   intersects(other) {
     this.dir = p5.Vector.sub(this.position, other.position);
-    return (this.dir.magSq() < ((this.size_v2) * (this.size_v2)) && this.local_force == true &&
+    return (this.dir.magSq() < ((300) * (300)) && this.local_force == true &&
       this.position.x !== 0 && this.position.x !== width && this.position.y !== 0 && this.position.y !== height);
   }
 
   intersectForce() {
-    this.power =500;
+    this.power =50;
     let d = this.dir.mag(); // Distance between objects
     this.dir.normalize(); // Normalize vector (distance doesn't matter here, we just want this vector for direction)
     d = constrain(d, 5, 100); // Keep distance within a reasonable range
@@ -94,24 +95,34 @@ class Particle {
   }
 
   update() {
+
+
+
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
     this.lifespan -= 0.0;
     this.velocity.limit(this.maxspeed);
 
+    this.history.push(this.position.copy());
+    //console.log(this.history);
+
+    if (this.history.length > 300) {
+      this.history.splice(0, 1);
+    }
+
     this.home.x = map(this.origposition.x,0,this.origWidth,0,width);
     this.home.y = map(this.origposition.y,0,this.origHeight,0,height);
 
 
-    this.c = 0.01;
-    this.speed = this.velocity.mag();
-    this.dragMagnitude = this.c * this.speed * this.speed;
-    this.drag = this.velocity.copy();
-    this.drag.mult(-1);
-    this.drag.normalize();
-    this.drag.mult(this.dragMagnitude);
-    this.velocity.add(this.drag);
+    // this.c = 0.01;
+    // this.speed = this.velocity.mag();
+    // this.dragMagnitude = this.c * this.speed * this.speed;
+    // this.drag = this.velocity.copy();
+    // this.drag.mult(-1);
+    // this.drag.normalize();
+    // this.drag.mult(this.dragMagnitude);
+    // this.velocity.add(this.drag);
 
     this.colour(this.rand);
     this.d = dist(this.position.x, this.position.y, this.home.x, this.home.y);
@@ -132,6 +143,8 @@ class Particle {
       this.size_v2 -= this.resize;
 
     }
+
+
 
 
    // if (this.local_force == false) {
@@ -186,19 +199,25 @@ if(pixelShaderToggle){
     // }
 
     if (this.position.y < 0) {
-      this.position.y = height;
+      this.velocity.mult(-1);
+    //  this.position.y = height;
     }
 
     if (this.position.y > height) {
-      this.position.y = 0;
+    //  this.position.y = 0;
+    this.velocity.mult(-1);
     }
     if (this.position.x < 0) {
-      this.position.x = width;
+    //  this.position.x = width;
+    this.velocity.mult(-1);
     }
 
     if (this.position.x > width) {
-      this.position.x = 0;
+    //  this.position.x = 0;
+    this.velocity.mult(-1);
     }
+
+
 
   }
 
@@ -224,12 +243,21 @@ if(pixelShaderToggle){
     //translate(this.position.x * 1.4,this.position.y * 1.4)
     //scale(1.4);
     push();
-    stroke(this.stroke_col);
-    fill(this.fill_col);
-    strokeWeight(this.strokeweight);
-    rectMode(CENTER); //or rect?
-    rect(this.position.x, this.position.y,
-      (this.size_v2),this.size_v2);
+    // stroke(this.stroke_col);
+    // fill(this.fill_col);
+    // strokeWeight(this.strokeweight);
+    // rectMode(CENTER); //or rect?
+    // rect(this.position.x, this.position.y,
+    //   (this.size_v2),this.size_v2);
+    stroke(255);
+   beginShape();
+   for (let i = 0; i < this.history.length; i++) {
+     let pos = this.history[i];
+     noFill();
+     vertex(pos.x, pos.y);
+     endShape();
+   }
+
 
     pop();
   }
