@@ -144,6 +144,25 @@ canvas {
   }
 }
 
+@media only screen and (min-width: 1920px) {
+  .topnav a {
+    font-size: 4vw;
+  }
+
+  .content {
+    font-size: 2vw;
+  }
+
+  .animated {
+    font-size: 4vw;
+  }
+
+  .content .fa-instagram {
+    font-size: 4vw;
+  }
+}
+
+
 .fadeOut {
   -webkit-animation-name: fadeOut;
   -moz-animation-name: fadeOut;
