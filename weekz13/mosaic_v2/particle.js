@@ -9,8 +9,9 @@ class Particle {
     this.lifespan = 0.0;
     this.fill_alpha = 0.0;
     this.rand = random(0, 100);
+    this.randsize_vert = int(random(2, 3));
     this.randsize = int(random(3, 4));
-     this.randsize2 = int(random(4, 8));//4 to 8
+    this.randsize2 = int(random(4, 8)); //4 to 8
     this.img = img_;
     this.size_v2 = skip;
     this.maxsize = width / this.randsize; //(skip / (particleßcount/1.5)) * 10.0 ;//random(1, 3) * (height/12) ;//40 //50;
@@ -28,6 +29,7 @@ class Particle {
     this.origWidth = devWidth;
     this.origHeight = devHeight;
     this.aspect = devWidth / devHeight;
+    this.aspect2 = devHeight / devWidth;
 
   }
 
@@ -43,8 +45,8 @@ class Particle {
       this.c = color(80, 240, 255); //0, 241, 255//may need to use 0,240,255 - test on projector //cyan
     } else if (this.rand > 92 && particlecount < 3) {
       this.c = color(253, 115, 255); //100, 0, 255
-    }else{
-      this.c = color(77, 110, 255);// blue
+    } else {
+      this.c = color(77, 110, 255); // blue
     }
 
 
@@ -132,6 +134,11 @@ class Particle {
       this.randsize = this.randsize2;
     }
 
+    if (particlecount <= 30 && windowWidth < windowHeight) {
+      this.randsize = this.randsize_vert;
+
+    }
+
     this.maxsize = width / this.randsize;
 
     this.colour(this.rand);
@@ -175,41 +182,34 @@ class Particle {
       this.local_force = true;
     }
 
+    if (particlecount < 20) {
 
-    // if (this.strokeweight > 1.0) {
-    //   this.strokeweight -= 0.0;
-    // }
-if(particlecount < 20){
+      if (this.position.x < 0) {
+        this.velocity.mult(-1);
+      } else if (this.position.x > width) {
+        this.velocity.mult(-1);
+      } else if (this.position.y < 0) {
+        this.velocity.mult(-1);
+      } else if (this.position.y > height) {
+        this.velocity.mult(-1);
+      }
+    } else {
 
-    if (this.position.x < 0) {
-      this.velocity.mult(-1);
-    }
-    else if (this.position.x > width){
-      this.velocity.mult(-1);
-    }
-     else if (this.position.y < 0){
-      this.velocity.mult(-1);
-     }
-    else if (this.position.y > height){
-      this.velocity.mult(-1);
-    }
-  }else{
+      if (this.position.y < 0 - (this.size_v2)) {
+        this.position.y = height + (this.size_v2);
+      }
 
-    if (this.position.y < 0 - (this.size_v2)) {
-      this.position.y = height + (this.size_v2);
-    }
+      if (this.position.y > height + (this.size_v2)) {
+        this.position.y = 0 - (this.size_v2);
+      }
+      if (this.position.x < 0 - (this.size_v2 * this.aspect)) {
+        this.position.x = width + (this.size_v2 * this.aspect);
+      }
 
-    if (this.position.y > height + (this.size_v2)) {
-      this.position.y = 0 - (this.size_v2);
+      if (this.position.x > width + (this.size_v2 * this.aspect)) {
+        this.position.x = 0 - (this.size_v2 * this.aspect);
+      }
     }
-    if (this.position.x < 0 - (this.size_v2 * this.aspect)) {
-      this.position.x = width + (this.size_v2 * this.aspect);
-    }
-
-    if (this.position.x > width + (this.size_v2 * this.aspect)) {
-      this.position.x = 0 - (this.size_v2 * this.aspect);
-    }
-  }
 
   }
 
@@ -229,7 +229,11 @@ if(particlecount < 20){
     fill(this.fill_col);
     strokeWeight(this.strokeweight);
     rectMode(CENTER); //or rect?
-    rect(this.position.x, this.position.y, (this.size_v2 * this.aspect), this.size_v2);
+    if (windowWidth > windowHeight) {
+      rect(this.position.x, this.position.y, (this.size_v2 * this.aspect), this.size_v2);
+    } else {
+      rect(this.position.x, this.position.y, this.size_v2, this.size_v2 * this.aspect2);
+    }
 
     pop();
   }
