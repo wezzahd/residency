@@ -50,21 +50,12 @@ class ParticleSystem {
 
         if (particle !== other && particle.intersects(other)) {
           particle.intersectForce();
-          stroke(particle.c);
-          strokeWeight(0.5);
-          //fill(255,40);
-          beginShape(LINES);
-
-          //if (particle.history.length > 290) {
-          //  let d = dist(particle.position.x, particle.position.x, particle.history[89].x, particle.history[89].y);
-          //  if (d < height) {
-          //    vertex(particle.history[50].x, particle.history[50].y);
-          //  vertex(particle.history[289].x, particle.history[289].y);
-          //  }
-          vertex(particle.position.x, particle.position.y);
-          vertex(other.position.x, other.position.y);
-          //  }
-          endShape(CLOSE);
+          //  push();
+          //   noFill();
+          //   strokeWeight(0.5);
+          //   stroke(particle.stroke_col,particle.lifespan);
+          //
+          // line(particle.position.x,particle.position.y, other.position.x,other.position.y);
 
 
         }
@@ -89,6 +80,17 @@ class ParticleSystem {
       particle.acceleration.y = -0.1 * (particle.position.y - particle.home.y);
     }
   }
+
+  get_moving() {
+    for (let particle of this.particles) {
+      particle.velocity.x = random(-2, 2);
+      particle.velocity.y = random(-2, 2);
+      particle.acceleration.x = 0.1 * (particle.position.x - particle.home.x);
+      particle.acceleration.y = 0.1 * (particle.position.y - particle.home.y);
+    }
+  }
+
+
 
   applyRepeller(r) {
     for (let particle of this.particles) {

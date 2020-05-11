@@ -16,7 +16,7 @@ function firebasesetup(){
 
 	database = firebase.database();
 
-	var ref = database.ref('test');
+	var ref = database.ref('test2');
 	ref.on('child_added', gotData, errData);
 
 }

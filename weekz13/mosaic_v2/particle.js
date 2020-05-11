@@ -3,21 +3,23 @@ class Particle {
     this.origposition = createVector(x, y);
     this.position = createVector(map(x, 0, devWidth, 0, width), map(y, 0, devHeight, 0, height));
     this.velocity = createVector();
-    this.velocity_v2 = createVector(random(-2, 2), random(-2, 2));
+    this.velocity_v2 = createVector(random(-5, 5), random(-5, 5));
     this.acceleration = createVector();
     this.home = this.origposition.copy();
     this.lifespan = 0.0;
     this.fill_alpha = 0.0;
-    this.rand = rand;
+    this.rand = random(0, 100);
+    this.randsize = int(random(3, 4));
+     this.randsize2 = int(random(4, 8));//4 to 8
     this.img = img_;
     this.size_v2 = skip;
-    this.maxsize = (skip / (particlecount / 1.5)) * 10.0; //random(1, 3) * (height/12) ;//40 //50;
+    this.maxsize = width / this.randsize; //(skip / (particleßcount/1.5)) * 10.0 ;//random(1, 3) * (height/12) ;//40 //50;
     this.radius = 25;
     this.highlight = false;
-    this.maxspeed = 3;
+    this.maxspeed = 1;
     this.maxforce = 1;
     this.resize = random(1, 3) * (1 / particlecount);
-    this.strokeweight = 1.0;
+    this.strokeweight = 3.0;
     this.selected = false;
     this.period = (this.rand + 1) * 600;
     this.fillperiod = (this.rand + 1);
@@ -25,21 +27,35 @@ class Particle {
     this.local_force = true;
     this.origWidth = devWidth;
     this.origHeight = devHeight;
-    this.history = [];
+    this.aspect = devWidth / devHeight;
 
   }
 
   colour(rand) {
 
-    this.c = color(this.img[0], this.img[1], this.img[2],240); //this.img.get(this.home.x / skip, this.home.y / skip);
+    if (this.rand > 0 && this.rand < 23) {
+      this.c = color(152, 79, 255); //45, 0, 255 // purple
+    } else if (this.rand > 23 && this.rand < 46) {
+      this.c = color(253, 115, 255); //220, 0, 255) //pink
+    } else if (this.rand > 46 && this.rand < 69) {
+      this.c = color(191, 240, 255); //191, 240, 255// //white
+    } else if (this.rand > 69 && this.rand < 92) {
+      this.c = color(80, 240, 255); //0, 241, 255//may need to use 0,240,255 - test on projector //cyan
+    } else if (this.rand > 92 && particlecount < 3) {
+      this.c = color(253, 115, 255); //100, 0, 255
+    }else{
+      this.c = color(77, 110, 255);// blue
+    }
+
 
     this.fill_col = this.c; //this.random_color_gen[rand];
     this.stroke_col = this.c; //this.random_color_gen[(rand + 3)];
   }
 
+
   run() {
     this.update();
-    //this.display();
+    this.display();
   }
 
   behaviors(px, py) {
@@ -74,12 +90,12 @@ class Particle {
 
   intersects(other) {
     this.dir = p5.Vector.sub(this.position, other.position);
-    return (this.dir.magSq() < ((150) * (150)) && this.local_force == true &&
+    return (this.dir.magSq() < ((this.size_v2) * (this.size_v2)) && this.local_force == true &&
       this.position.x !== 0 && this.position.x !== width && this.position.y !== 0 && this.position.y !== height);
   }
 
   intersectForce() {
-    this.power = 50;
+    this.power = 1000;
     let d = this.dir.mag(); // Distance between objects
     this.dir.normalize(); // Normalize vector (distance doesn't matter here, we just want this vector for direction)
     d = constrain(d, 5, 100); // Keep distance within a reasonable range
@@ -95,34 +111,28 @@ class Particle {
   }
 
   update() {
-
-
-
     this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
     this.acceleration.mult(0);
     this.lifespan -= 0.0;
     this.velocity.limit(this.maxspeed);
 
-    this.history.push(this.position.copy());
-    //console.log(this.history);
-
-    if (this.history.length > 300) {
-      this.history.splice(0, 1);
-    }
-
     this.home.x = map(this.origposition.x, 0, this.origWidth, 0, width);
     this.home.y = map(this.origposition.y, 0, this.origHeight, 0, height);
 
+    if (this.home.y < 0 || this.home.y > height) {
+      this.home.y = constrain(this.home.y, 0, height - (this.rand));
+    }
 
-    // this.c = 0.01;
-    // this.speed = this.velocity.mag();
-    // this.dragMagnitude = this.c * this.speed * this.speed;
-    // this.drag = this.velocity.copy();
-    // this.drag.mult(-1);
-    // this.drag.normalize();
-    // this.drag.mult(this.dragMagnitude);
-    // this.velocity.add(this.drag);
+    if (this.home.x < 0 || this.home.x > width) {
+      this.home.x = constrain(this.home.x, 0, width - (this.rand));
+    }
+
+    if (particlecount >= 30) {
+      this.randsize = this.randsize2;
+    }
+
+    this.maxsize = width / this.randsize;
 
     this.colour(this.rand);
     this.d = dist(this.position.x, this.position.y, this.home.x, this.home.y);
@@ -135,49 +145,21 @@ class Particle {
     }
 
 
-    // if (this.amplitude < this.lifespan) {
-    //   this.amplitude += 5.0;
-    // }
-
     if (this.size_v2 > this.maxsize) {
       this.size_v2 -= this.resize;
 
     }
 
+    if (this.size_v2 < this.maxsize) {
+      this.size_v2 += this.resize;
 
-
-
-    // if (this.local_force == false) {
-    //    this.maxsize = skip;
-    //  }else{
-    //
-    //
-    //    this.maxsizepercent = [];
-    //    this.maxsizepercent[0] = skip;
-    //    this.maxsizepercent[1] = skip;
-    //
-    //     //if (displayHeight < 900){
-    //
-    //     this.maxsizepercent[2] = 100;
-    //
-    //  // }else{
-    //   //  this.maxsizepercent[2] = 200;
-    //   //}
-    //
-    //    this.maxsize = this.maxsizepercent[int(random(0,3))];
-    //  }
-
-    if (this.lifespan > (150 - (particlecount / 2.0)) && this.local_force == true) {
-      this.lifespan -= 0.5;
-    }
-    if (this.fill_alpha > (150 - (particlecount / 2.0)) && this.local_force == true) {
-      this.fill_alpha -= 1.0;
     }
 
-    if (this.lifespan >= 0.0 && this.lifespan <= (150 - (particlecount / 2.0)) && this.local_force == true) {
+
+    if (this.lifespan >= 0.0 && this.lifespan <= 255) {
       this.lifespan += .5;
     }
-    if (this.fill_alpha >= 0.0 && this.fill_alpha <= (150 - (particlecount / 2.0)) && this.local_force == true) {
+    if (this.fill_alpha >= 0.0 && this.fill_alpha <= 255) {
       this.fill_alpha += .5;
     }
 
@@ -187,7 +169,7 @@ class Particle {
       //this.strokeweight += 1.0;
     }
 
-    if (pixelShaderToggle) {
+    if (instruction_toggle) {
       this.local_force = false;
     } else {
       this.local_force = true;
@@ -197,67 +179,57 @@ class Particle {
     // if (this.strokeweight > 1.0) {
     //   this.strokeweight -= 0.0;
     // }
+if(particlecount < 20){
 
-    if (this.position.y < 0) {
-      this.velocity.mult(-1);
-      //  this.position.y = height;
-    }
-
-    if (this.position.y > height) {
-      //  this.position.y = 0;
-      this.velocity.mult(-1);
-    }
     if (this.position.x < 0) {
-      //  this.position.x = width;
       this.velocity.mult(-1);
     }
-
-    if (this.position.x > width) {
-      //  this.position.x = 0;
+    else if (this.position.x > width){
       this.velocity.mult(-1);
     }
+     else if (this.position.y < 0){
+      this.velocity.mult(-1);
+     }
+    else if (this.position.y > height){
+      this.velocity.mult(-1);
+    }
+  }else{
 
+    if (this.position.y < 0 - (this.size_v2)) {
+      this.position.y = height + (this.size_v2);
+    }
 
+    if (this.position.y > height + (this.size_v2)) {
+      this.position.y = 0 - (this.size_v2);
+    }
+    if (this.position.x < 0 - (this.size_v2 * this.aspect)) {
+      this.position.x = width + (this.size_v2 * this.aspect);
+    }
+
+    if (this.position.x > width + (this.size_v2 * this.aspect)) {
+      this.position.x = 0 - (this.size_v2 * this.aspect);
+    }
+  }
 
   }
 
   // Method to display
   display() {
 
-    if (mouseIsPressed || LFO == true) {
-
-      this.fill_alpha = map(this.d, 0, 500, 255, 40);
-      //this.size_v2 = map(this.d, 0, 500, skip, this.maxsize);
-      //this.amplitude = map(this.d, 0, 500, 0, this.amplitude);
-      this.size_osc = 0;
-    }
 
     if (this.d > 0.05 && mouseIsPressed) {
       this.local_force = false;
     }
 
-    this.fill_col.setAlpha(this.fill_alpha);
+    this.fill_col.setAlpha(255);
     this.stroke_col.setAlpha(this.lifespan);
-    //console.log(this.stroke_col);
-    //push();
-    //translate(this.position.x * 1.4,this.position.y * 1.4)
-    //scale(1.4);
-    push();
-    // stroke(this.stroke_col);
-    // fill(this.fill_col);
-    // strokeWeight(this.strokeweight);
-    // rectMode(CENTER); //or rect?
-    // rect(this.position.x, this.position.y,
-    //   (this.size_v2),this.size_v2);
-    stroke(255);
-    beginShape();
-    for (let i = 0; i < this.history.length; i++) {
-      let pos = this.history[i];
-      noFill();
-      vertex(pos.x, pos.y);
-      endShape();
-    }
 
+    push();
+    noStroke();
+    fill(this.fill_col);
+    strokeWeight(this.strokeweight);
+    rectMode(CENTER); //or rect?
+    rect(this.position.x, this.position.y, (this.size_v2 * this.aspect), this.size_v2);
 
     pop();
   }

@@ -163,7 +163,7 @@ function particle_draw() {
 
 
 
-blendMode(SCREEN);
+blendMode(ADD);
 
 // if (pixelShaderToggle){
 //   push();
