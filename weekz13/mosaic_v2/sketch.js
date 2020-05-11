@@ -263,9 +263,9 @@ function windowResized() {
     maskpg.resizeCanvas(windowWidth, windowHeight);
     masker();
   } else {
-    inner = iosInnerHeight();
-    resizeCanvas(windowWidth, inner);
-    maskpg.resizeCanvas(windowWidth, inner);
+    let innerh = iosInnerHeight();
+    resizeCanvas(windowWidth, innerh);
+    maskpg.resizeCanvas(windowWidth, innerh);
     masker();
   }
 
