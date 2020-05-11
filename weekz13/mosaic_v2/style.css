@@ -146,19 +146,19 @@ canvas {
 
 @media only screen and (min-width: 1920px) {
   .topnav a {
-    font-size: 4vw;
+    font-size: 3.5vw;
   }
 
   .content {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   .animated {
-    font-size: 4vw;
+    font-size: 3.5vw;
   }
 
   .content .fa-instagram {
-    font-size: 4vw;
+    font-size: 3.5vw;
   }
 }
 
