@@ -134,7 +134,7 @@ class Particle {
       this.randsize = this.randsize2;
     }
 
-    if (particlecount <= 30 && windowWidth < windowHeight) {
+    if (particlecount <= 100 && windowWidth < windowHeight) {
       this.randsize = this.randsize_vert;
 
     }
