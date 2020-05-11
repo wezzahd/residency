@@ -104,7 +104,7 @@ function setup() {
     skip = 200;
     if (windowWidth < windowHeight) {
       inner = iosInnerHeight();
-      cnv = createCanvas(windowWidth, window.innerHeight);
+      cnv = createCanvas(windowWidth, inner);
       cnv.id('mycanvas');
       cnv.style('display', 'block');
       console.log("portrait")
