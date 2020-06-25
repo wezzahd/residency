@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r62/three.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/175711/trackball_ctrl_r62.js"></script>
+  </head>
+  <body style="margin:0;height:100vh;">
+    <!--<div style="position:absolute;background-color:rgba(0,0,0,0);font-size:24px;color:#cccccc">-->
+    <!--<h1>TodaysArt</h1>-->
+    <!--<h2>Festivals</h2>-->
+    <!--<h2>Organization</h2>-->
+    <!--</div>-->
+
+    <div style="display:block" id="container"></div>
+
+    <script type="x-shader/x-vertex" id="vertexShader">
+      // uniform float amplitude;
+      // attribute float size;
+      uniform float amplitude;
+
+      attribute vec3 vertexColor;
+
+      varying vec4 varColor;
+
+      void main()
+      {
+      varColor = vec4(vertexColor, 1.0);
+
+      vec4 pos = vec4(position, 1.0);
+      pos.z *= amplitude;
+
+      vec4 mvPosition = modelViewMatrix * pos;
+
+      gl_PointSize = 1.0;
+      gl_Position = projectionMatrix * mvPosition;
+      }
+    </script>
+
+    <script type="x-shader/x-fragment" id="fragmentShader">
+      varying vec4 varColor;
+
+      void main()
+      {
+      gl_FragColor = varColor;
+      }
+    </script>
+
+    <script>
+    var container;
+    let camera, scene, renderer;
+    var controls;
+
+    var shaderUniforms, shaderAttributes;
+
+    var particles = [];
+    var particleSystem;
+
+    var imageWidth;
+    var imageHeight;
+    var imageData = null;
+
+    var imageIndex = 0;
+
+    var animationTime = 0;
+    var animationDelta = 0.01;
+    // //mousemove
+    // const mouse = new THREE.Vector2();
+    // const target = new THREE.Vector2();
+    // const windowHalf = new THREE.Vector2( window.innerWidth / 2, window.innerHeight / 2 );
+
+    init();
+    function init() {
+      createScene();
+      createControls();
+      createPixelData();
+
+
+      window.addEventListener('resize', onWindowResize, false);
+      // //mousemove
+      // document.addEventListener( 'mousemove', onMouseMove, false );
+    }
+
+    function createScene() {
+
+      container = document.getElementById('container');
+
+      scene = new THREE.Scene();
+
+      camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000);
+
+      camera.position.z = 1000;
+      camera.lookAt(scene.position)
+
+
+      renderer = new THREE.WebGLRenderer({
+        antialias: true
+      });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setClearColor(0x111111, 1);
+
+      container.appendChild(renderer.domElement);
+    }
+    // //mousemove
+    // function onMouseMove( event ) {
+    //
+    // 	mouse.x = ( event.clientX - windowHalf.x );
+    // 	mouse.y = ( event.clientY - windowHalf.y );
+    //   console.log(mouse.x, mouse.y);
+    //
+    // }
+    function createControls() {
+      controls = new THREE.TrackballControls(camera);
+
+      controls.rotateSpeed = 1.0;
+
+      controls.noZoom = true;
+      controls.noPan = true;
+
+      controls.staticMoving = true;
+      controls.dynamicDampingFactor = 0.3;
+    }
+
+    function createPixelData() {
+      var image = document.createElement("img");
+      var imgArray = new Array();
+
+      imgArray[0] = new Image();
+      imgArray[0].src = 'img/pic.jpg';
+
+      imgArray[1] = new Image();
+      imgArray[1].src = 'img/disco.jpeg';
+
+      imgArray[2] = new Image();
+      imgArray[2].src = 'img/three.jpg';
+
+      // var imgIndex = imageIndex;
+
+
+
+      var canvas = document.createElement("canvas");
+      var context = canvas.getContext("2d");
+
+
+
+      image.crossOrigin = "Anonymous";
+      image.onload = function() {
+        image.width = canvas.width = image.naturalWidth;
+        image.height = canvas.height = image.naturalHeight;
+        console.log(image.naturalWidth,image.naturalHeight)
+
+        context.fillStyle = context.createPattern(image, 'no-repeat');
+        context.fillRect(0, 0, image.naturalWidth, image.naturalHeight);
+        //context.drawImage(image, 0, 0, imageWidth, imageHeight);
+
+        imageData = context.getImageData(0, 0, image.naturalWidth, image.naturalHeight).data;
+        imageWidth = image.naturalWidth;
+        imageHeight = image.naturalHeight;
+        createParticles();
+        tick();
+      };
+
+      image.src = imgArray[imageIndex].src;
+    }
+
+    function createParticles() {
+      var colors = [];
+      var weights = [0.2126, 0.7152, 0.0722];
+      var c = 0;
+
+      var geometry, material;
+      var x, y;
+      var zRange = 300;
+
+      geometry = new THREE.Geometry();
+      geometry.dynamic = false;
+
+      x = imageWidth * -0.5;
+      y = imageHeight * 0.5;
+
+      shaderAttributes = {
+        vertexColor: {
+          type: "c",
+          value: []
+        }
+      };
+
+      shaderUniforms = {
+        amplitude: {
+          type: "f",
+        }
+      };
+
+      var shaderMaterial = new THREE.ShaderMaterial({
+        attributes: shaderAttributes,
+        uniforms: shaderUniforms,
+        vertexShader: document.getElementById("vertexShader").textContent,
+        fragmentShader: document.getElementById("fragmentShader").textContent
+      })
+
+      for (var i = 0; i < imageHeight; i++) {
+        for (var j = 0; j < imageWidth; j++) {
+          var color = new THREE.Color();
+
+          color.setRGB(imageData[c] / 255, imageData[c + 1] / 255, imageData[c + 2] / 255);
+          shaderAttributes.vertexColor.value.push(color);
+
+          var weight = color.r * weights[0] +
+            color.g * weights[1] +
+            color.b * weights[2];
+
+          var vertex = new THREE.Vector3();
+
+          vertex.x = x;
+          vertex.y = y;
+          vertex.z = (zRange * -0.5) + (zRange * weight);
+
+          geometry.vertices.push(vertex);
+
+          c += 4;
+          x++;
+        }
+
+        x = imageWidth * -0.5;
+        y--;
+      }
+      console.log(geometry.vertices.length)
+      particleSystem = new THREE.ParticleSystem(geometry, shaderMaterial);
+
+      scene.add(particleSystem);
+    }
+
+    function tick() {
+      requestAnimationFrame(tick);
+      // //mousemove
+      // target.x = ( 1 - mouse.x ) * 0.002;
+      // target.y = ( 1 - mouse.y ) * 0.002;
+      // console.log(target.x,target.y);
+      //
+      // camera.rotation.x += 0.005 * ( target.y - camera.rotation.x );
+      // camera.rotation.y += 0.005 * ( target.x - camera.rotation.y );
+      // console.log(camera.rotation.x, camera.rotation.y);
+
+      update();
+      render();
+    }
+
+    function update() {
+
+  
+
+
+      shaderUniforms.amplitude.value = Math.sin(animationTime);
+
+      animationTime += animationDelta;
+
+      waveAmp = shaderUniforms.amplitude.value;
+
+      console.log(Math.round(shaderUniforms.amplitude.value));
+
+      if (shaderUniforms.amplitude.value > Math.tan(animationTime)) {
+        imageIndex++;
+        console.log('next image',imageIndex)
+      }
+      controls.update();
+    }
+
+    function render() {
+      renderer.render(scene, camera);
+    }
+
+    function onWindowResize() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    </script>
+
+  </body>
+</html>
